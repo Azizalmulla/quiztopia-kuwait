@@ -6,21 +6,21 @@ const quizCategories = [
   {
     title: "Kuwait History",
     description: "Test your knowledge about Kuwait's rich history and cultural heritage",
-    icon: "Trophy",
+    icon: "Trophy" as const,
     whatsappLink: "https://wa.me/1234567890?text=Start%20Kuwait%20History%20Quiz",
     webLink: "/quiz/history"
   },
   {
     title: "Local Cuisine",
     description: "Explore the flavors and traditions of Kuwaiti cuisine",
-    icon: "Trophy",
+    icon: "Trophy" as const,
     whatsappLink: "https://wa.me/1234567890?text=Start%20Cuisine%20Quiz",
     webLink: "/quiz/cuisine"
   },
   {
     title: "Geography",
     description: "Discover Kuwait's landscapes and geographical features",
-    icon: "Trophy",
+    icon: "Trophy" as const,
     whatsappLink: "https://wa.me/1234567890?text=Start%20Geography%20Quiz",
     webLink: "/quiz/geography"
   },
