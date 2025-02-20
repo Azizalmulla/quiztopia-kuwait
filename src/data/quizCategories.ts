@@ -11,6 +11,7 @@ export const quizCategories = [
     title: "معلومات عامة - General Knowledge",
     description: "اختبر معلوماتك العامة في مختلف المجالات!",
     icon: Brain,
+    imageUrl: "/placeholder.svg", // Add your cute image URL here
     whatsappLink: "https://wa.me/your-bot?text=start_general_quiz",
     webLink: "/quiz/general",
     gradient: "from-indigo-600 to-violet-500"
@@ -19,6 +20,7 @@ export const quizCategories = [
     title: "علم الدول - Flags",
     description: "شارك في تحدي الأعلام و اختبر معرفتك بدول العالم!",
     icon: Flag,
+    imageUrl: "/placeholder.svg", // Add your cute image URL here
     whatsappLink: "https://wa.me/your-bot?text=start_flags_quiz",
     webLink: "/quiz/flags",
     gradient: "from-blue-500 to-cyan-400"

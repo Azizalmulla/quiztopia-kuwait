@@ -6,13 +6,21 @@ import { QRCodeSVG } from 'qrcode.react';
 interface QuizCardProps {
   title: string;
   description: string;
-  icon: any;
+  icon: any; // Keep for backwards compatibility
   whatsappLink: string;
   webLink: string;
   gradient: string;
+  imageUrl?: string; // Add optional image URL
 }
 
-export function QuizCard({ title, description, icon: Icon, whatsappLink, webLink, gradient }: QuizCardProps) {
+export function QuizCard({ 
+  title, 
+  description, 
+  imageUrl,
+  whatsappLink, 
+  webLink, 
+  gradient 
+}: QuizCardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
 
   return (
@@ -23,9 +31,17 @@ export function QuizCard({ title, description, icon: Icon, whatsappLink, webLink
       <div className={`card-flip-inner ${isFlipped ? 'flipped' : ''} duration-700`}>
         <div className="card-front">
           <div className={`glass h-full rounded-2xl p-8 flex flex-col items-center justify-center gap-6 transition-all duration-300 hover:shadow-lg hover:shadow-${gradient} border border-white/5 group-hover:border-white/10`}>
-            <div className={`w-24 h-24 rounded-full bg-gradient-to-r ${gradient} p-0.5`}>
-              <div className="w-full h-full rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center">
-                <Icon className="w-12 h-12 text-white transform group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300" />
+            <div className={`w-24 h-24 rounded-full bg-gradient-to-r ${gradient} p-0.5 overflow-hidden`}>
+              <div className="w-full h-full rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center overflow-hidden">
+                {imageUrl ? (
+                  <img 
+                    src={imageUrl} 
+                    alt={title}
+                    className="w-full h-full object-cover transform group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300"
+                  />
+                ) : (
+                  <div className="w-16 h-16 bg-white/20 rounded-full animate-pulse" />
+                )}
               </div>
             </div>
             <h3 className="text-2xl font-semibold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-white/70 transition-all duration-300">{title}</h3>
