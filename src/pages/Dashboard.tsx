@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { QuizCard } from '@/components/QuizCard';
 import { 
@@ -43,6 +42,14 @@ const Dashboard = () => {
   }
 
   const categories = [
+    {
+      title: "معلومات عامة - General Knowledge",
+      description: "اختبر معلوماتك العامة في مختلف المجالات!",
+      icon: Brain,
+      whatsappLink: "https://wa.me/your-bot?text=start_general_quiz",
+      webLink: "/quiz/general",
+      gradient: "from-indigo-600 to-violet-500"
+    },
     {
       title: "علم الدول - Flags",
       description: "شارك في تحدي الأعلام و اختبر معرفتك بدول العالم!",
