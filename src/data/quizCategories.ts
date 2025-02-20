@@ -12,7 +12,7 @@ export const quizCategories = [
     title: "معلومات عامة - General Knowledge",
     description: "اختبر معلوماتك العامة في مختلف المجالات!",
     icon: Brain,
-    imageUrl: "https://media.giphy.com/media/VDGKJDJT64O5cHttaP/giphy.gif",
+    imageUrl: "https://media.giphy.com/media/h8n8aJWronkmvRTB0y/giphy.gif", // Animated light bulb with question mark
     whatsappLink: "https://wa.me/your-bot?text=start_general_quiz",
     webLink: "/quiz/general",
     gradient: "from-indigo-600 to-violet-500"
@@ -21,7 +21,7 @@ export const quizCategories = [
     title: "علم الدول - Flags",
     description: "شارك في تحدي الأعلام و اختبر معرفتك بدول العالم!",
     icon: Flag,
-    imageUrl: "https://media.giphy.com/media/26tPdwMm4jyClgxTq/giphy.gif",
+    imageUrl: "https://media.giphy.com/media/MagSgolK3ScWvtHAB4/giphy.gif", // Animated waving flags
     whatsappLink: "https://wa.me/your-bot?text=start_flags_quiz",
     webLink: "/quiz/flags",
     gradient: "from-blue-500 to-cyan-400"
@@ -30,7 +30,7 @@ export const quizCategories = [
     title: "المطبخ العالمي - Food",
     description: "اكتشف عالم المأكولات و المطابخ العالمية!",
     icon: Utensils,
-    imageUrl: "https://media.giphy.com/media/SKGo6OYe24EBG/giphy.gif",
+    imageUrl: "https://media.giphy.com/media/Lq0h93752f6J9tijrh/giphy.gif", // Animated cooking
     whatsappLink: "https://wa.me/your-bot?text=start_food_quiz",
     webLink: "/quiz/food",
     gradient: "from-orange-500 to-yellow-400"
@@ -39,7 +39,7 @@ export const quizCategories = [
     title: "ماركات عالمية - Brands",
     description: "تحدي الماركات العالمية - شوف كم تعرف!",
     icon: ShoppingBag,
-    imageUrl: "https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif",
+    imageUrl: "https://media.giphy.com/media/J2CLvzhay29UwhkAKT/giphy.gif", // Animated shopping bags
     whatsappLink: "https://wa.me/your-bot?text=start_brands_quiz",
     webLink: "/quiz/brands",
     gradient: "from-purple-500 to-pink-400"
@@ -48,7 +48,7 @@ export const quizCategories = [
     title: "سينما - Movies",
     description: "اختبر معرفتك بالأفلام والمسلسلات العالمية!",
     icon: Clapperboard,
-    imageUrl: "https://media.giphy.com/media/UQJ5yo5d6dNARRvgR6/giphy.gif",
+    imageUrl: "https://media.giphy.com/media/xT9IgwHr6d1LOJwin6/giphy.gif", // Animated movie clapper
     whatsappLink: "https://wa.me/your-bot?text=start_movies_quiz",
     webLink: "/quiz/movies",
     gradient: "from-red-500 to-rose-400"
@@ -57,7 +57,7 @@ export const quizCategories = [
     title: "رمضان - Ramadan",
     description: "تحديات وأسئلة خاصة بشهر رمضان المبارك!",
     icon: Moon,
-    imageUrl: "https://media.giphy.com/media/THXQZHl1B52eJY22W6/giphy.gif",
+    imageUrl: "https://media.giphy.com/media/upExDwNnZxuKDEXnBf/giphy.gif", // Animated crescent moon and stars
     whatsappLink: "https://wa.me/your-bot?text=start_ramadan_quiz",
     webLink: "/quiz/ramadan",
     gradient: "from-emerald-500 to-teal-400"
@@ -66,7 +66,7 @@ export const quizCategories = [
     title: "تكنولوجيا - Tech",
     description: "اختبر معرفتك بعالم التكنولوجيا والابتكارات!",
     icon: Cpu,
-    imageUrl: "https://media.giphy.com/media/QuIxFwQo0RMT1tASlV/giphy.gif",
+    imageUrl: "https://media.giphy.com/media/3oKIPic2BnoVZkRla8/giphy.gif", // Animated tech gadgets
     whatsappLink: "https://wa.me/your-bot?text=start_tech_quiz",
     webLink: "/quiz/tech",
     gradient: "from-indigo-500 to-violet-400"
@@ -75,7 +75,7 @@ export const quizCategories = [
     title: "موسيقى - Music",
     description: "اختبر معرفتك بالموسيقى العالمية والعربية!",
     icon: Music,
-    imageUrl: "https://media.giphy.com/media/tqfS3mgQU28ko/giphy.gif",
+    imageUrl: "https://media.giphy.com/media/iFPQrD1LKr7AJ9sm5v/giphy.gif", // Animated musical notes
     whatsappLink: "https://wa.me/your-bot?text=start_music_quiz",
     webLink: "/quiz/music",
     gradient: "from-pink-500 to-rose-400"
@@ -84,7 +84,7 @@ export const quizCategories = [
     title: "فن - Art",
     description: "اكتشف عالم الفن والفنانين العالميين!",
     icon: Palette,
-    imageUrl: "https://media.giphy.com/media/26BRv0ThflsHCqDrG/giphy.gif",
+    imageUrl: "https://media.giphy.com/media/l0HlQXkh1wx1RjtUA/giphy.gif", // Animated paint palette
     whatsappLink: "https://wa.me/your-bot?text=start_art_quiz",
     webLink: "/quiz/art",
     gradient: "from-yellow-500 to-orange-400"
@@ -93,7 +93,7 @@ export const quizCategories = [
     title: "سيارات - Cars",
     description: "تحدي معرفتك بعالم السيارات والسباقات!",
     icon: Car,
-    imageUrl: "https://media.giphy.com/media/3ohs7HdhQA4ffttvrO/giphy.gif",
+    imageUrl: "https://media.giphy.com/media/l3V0eDqMD7fflVhcY/giphy.gif", // Animated racing car
     whatsappLink: "https://wa.me/your-bot?text=start_cars_quiz",
     webLink: "/quiz/cars",
     gradient: "from-blue-600 to-indigo-400"
