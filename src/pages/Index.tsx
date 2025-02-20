@@ -29,7 +29,8 @@ const Index = () => {
           transition-all duration-300 ease-out
           hover:shadow-xl
           hover:scale-105
-          active:scale-98"
+          active:scale-98
+          focus:outline-none"
         >
           ها نلعب؟
           <Coffee className="w-5 h-5" />
