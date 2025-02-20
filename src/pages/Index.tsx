@@ -11,8 +11,8 @@ const Index = () => {
       {/* Mascot Image */}
       <div className="flex-1 flex items-center justify-center w-full max-w-[600px] mx-auto">
         <img
-          src="/lovable-uploads/37fe5675-8e85-498e-a6dc-d8fbf86d8517.png"
-          alt="Robot Mascot"
+          src="/lovable-uploads/3ff2886a-7520-432f-a635-2d10478bbb6c.png"
+          alt="Robot Mascot with Coffee"
           className="w-full h-auto object-contain"
         />
       </div>
