@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { QuizCard } from '@/components/QuizCard';
 import { ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -7,28 +7,34 @@ import { supabase } from '@/lib/supabase';
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    // Check authentication status
-    supabase.auth.getUser().then(({ data: { user }, error }) => {
+    const checkAuth = async () => {
+      const { data: { user }, error } = await supabase.auth.getUser();
       if (error || !user) {
-        // Redirect to auth page if not authenticated
         navigate('/game');
+      } else {
+        setIsAuthenticated(true);
       }
-    });
+    };
 
-    // Set up auth state listener
+    checkAuth();
+
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (event === 'SIGNED_OUT' || !session) {
         navigate('/game');
       }
     });
 
-    // Cleanup subscription
     return () => {
       subscription.unsubscribe();
     };
   }, [navigate]);
+
+  if (!isAuthenticated) {
+    return null; // or a loading spinner
+  }
 
   const categories = [
     {

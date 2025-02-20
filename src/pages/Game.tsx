@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Auth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
 import { supabase } from '../lib/supabase';
@@ -9,36 +9,33 @@ import { toast } from "@/components/ui/use-toast";
 
 const Game = () => {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Check if user is already logged in
-    supabase.auth.getUser().then(({ data: { user } }) => {
-      if (user) {
-        navigate('/dashboard');
+    // Initial auth check
+    const checkAuth = async () => {
+      try {
+        const { data: { user }, error } = await supabase.auth.getUser();
+        if (user && !error) {
+          navigate('/dashboard');
+        }
+      } catch (error) {
+        console.error('Auth check error:', error);
+      } finally {
+        setIsLoading(false);
       }
-    });
+    };
+
+    checkAuth();
 
     // Set up auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === 'SIGNED_IN') {
+      if (event === 'SIGNED_IN' && session) {
         toast({
           title: "Welcome!",
           description: "Successfully signed in.",
         });
         navigate('/dashboard');
-      }
-      if (event === 'SIGNED_OUT') {
-        navigate('/');
-      }
-      if (event === 'USER_UPDATED') {
-        toast({
-          title: "Account Updated",
-          description: "Your account has been updated.",
-        });
-      }
-      // Handle authentication errors
-      if (event === 'INITIAL_SESSION' && !session) {
-        console.log('No session found');
       }
     });
 
@@ -47,6 +44,10 @@ const Game = () => {
       subscription.unsubscribe();
     };
   }, [navigate]);
+
+  if (isLoading) {
+    return null; // or a loading spinner
+  }
 
   return (
     <div className="min-h-screen w-full bg-gradient-to-b from-zinc-900 to-black">
