@@ -11,42 +11,42 @@ const Dashboard = () => {
     {
       title: "علم الدول - Flags",
       description: "شارك في تحدي الأعلام و اختبر معرفتك بدول العالم!",
-      icon: "Trophy",
+      icon: 'Trophy' as const, // Type assertion to ensure it matches QuizCardProps
       whatsappLink: "https://wa.me/your-bot?text=start_flags_quiz",
       webLink: "/quiz/flags"
     },
     {
       title: "المطبخ العالمي - Food",
       description: "اكتشف عالم المأكولات و المطابخ العالمية!",
-      icon: "Trophy",
+      icon: 'Trophy' as const,
       whatsappLink: "https://wa.me/your-bot?text=start_food_quiz",
       webLink: "/quiz/food"
     },
     {
       title: "ماركات عالمية - Brands",
       description: "تحدي الماركات العالمية - شوف كم تعرف!",
-      icon: "Trophy",
+      icon: 'Trophy' as const,
       whatsappLink: "https://wa.me/your-bot?text=start_brands_quiz",
       webLink: "/quiz/brands"
     },
     {
       title: "سينما - Movies",
       description: "اختبر ثقافتك السينمائية ومعرفتك بالأفلام العالمية!",
-      icon: "Trophy",
+      icon: 'Trophy' as const,
       whatsappLink: "https://wa.me/your-bot?text=start_movies_quiz",
       webLink: "/quiz/movies"
     },
     {
       title: "رمضان كريم - Ramadan",
       description: "تحديات و أسئلة خاصة بشهر رمضان المبارك!",
-      icon: "Trophy",
+      icon: 'Trophy' as const,
       whatsappLink: "https://wa.me/your-bot?text=start_ramadan_quiz",
       webLink: "/quiz/ramadan"
     },
     {
       title: "تكنولوجيا - Tech",
       description: "اختبر معرفتك بعالم التكنولوجيا والابتكارات!",
-      icon: "Trophy",
+      icon: 'Trophy' as const,
       whatsappLink: "https://wa.me/your-bot?text=start_tech_quiz",
       webLink: "/quiz/tech"
     }
