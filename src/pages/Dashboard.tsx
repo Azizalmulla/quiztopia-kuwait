@@ -319,12 +319,12 @@ const Dashboard = () => {
           </button>
         </div>
 
-        {/* Categories Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-[1600px] mx-auto">
+        {/* Categories Grid with adjusted spacing and responsive columns */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-[1600px] mx-auto">
           {categories.map((category, index) => (
             <div
               key={category.title}
-              className="animate-fade-in"
+              className="animate-fade-in transform hover:scale-105 transition-transform duration-200"
               style={{ animationDelay: `${index * 100}ms` }}
             >
               <QuizCard {...category} />
@@ -332,6 +332,14 @@ const Dashboard = () => {
           ))}
         </div>
       </div>
+
+      {/* Scroll to top button */}
+      <button
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        className="fixed bottom-8 right-8 p-4 rounded-full bg-white/10 hover:bg-white/20 text-white/70 hover:text-white transition-all duration-200 z-50"
+      >
+        <ArrowLeft className="w-6 h-6 transform rotate-90" />
+      </button>
     </div>
   );
 };
