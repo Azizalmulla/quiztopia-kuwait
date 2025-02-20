@@ -10,6 +10,14 @@ const Index = () => {
     <div className="min-h-screen w-full bg-gradient-to-b from-black to-zinc-900 overflow-hidden">
       {/* Floating Elements */}
       <div className="absolute inset-0 pointer-events-none">
+        {/* Neural Network Pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-[10%] left-[15%] w-32 h-32 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-full blur-3xl"></div>
+          <div className="absolute top-[40%] right-[15%] w-40 h-40 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-[20%] left-[25%] w-36 h-36 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full blur-3xl"></div>
+        </div>
+
+        {/* Animated Particles */}
         <div className="absolute top-20 left-[20%] animate-bounce delay-100">
           <PartyPopper className="w-8 h-8 text-yellow-400 opacity-60" />
         </div>
@@ -24,55 +32,67 @@ const Index = () => {
       {/* Hero Section */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4">
         {/* Main Content */}
-        <div className="text-center space-y-6 max-w-3xl mx-auto animate-fade-in">
+        <div className="text-center space-y-8 max-w-3xl mx-auto animate-fade-in">
+          {/* Logo Area */}
           <div className="relative inline-block">
-            <h1 className="text-4xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 animate-pulse">
-              AiWalla
-            </h1>
+            {/* Brand Name */}
+            <div className="relative">
+              <div className="absolute inset-0 blur-2xl opacity-50 bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400"></div>
+              <h1 className="text-5xl md:text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 animate-pulse relative">
+                AiWalla
+              </h1>
+            </div>
+            {/* Decorative Elements */}
             <div className="absolute -top-8 -right-8 animate-spin-slow">
               <Sparkles className="w-8 h-8 text-yellow-400" />
             </div>
+            <div className="absolute -bottom-4 -left-8 animate-spin-slow delay-150">
+              <Sparkles className="w-6 h-6 text-emerald-400" />
+            </div>
           </div>
           
-          <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto">
+          {/* Tagline */}
+          <p className="text-2xl md:text-3xl text-gray-300 font-medium">
             اختبر معلوماتك
           </p>
 
-          {/* Animated Decorative elements */}
-          <div className="flex gap-4 justify-center my-8 relative">
-            <div className="w-16 h-16 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 opacity-75 blur-xl animate-pulse"></div>
-            <div className="w-16 h-16 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 opacity-75 blur-xl animate-pulse delay-100"></div>
-            <div className="w-16 h-16 rounded-full bg-gradient-to-r from-yellow-500 to-orange-500 opacity-75 blur-xl animate-pulse delay-200"></div>
+          {/* Digital Lines */}
+          <div className="flex gap-4 justify-center my-12 relative">
+            <div className="w-20 h-20 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 opacity-75 blur-xl animate-pulse"></div>
+            <div className="w-20 h-20 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 opacity-75 blur-xl animate-pulse delay-100"></div>
+            <div className="w-20 h-20 rounded-full bg-gradient-to-r from-yellow-500 to-orange-500 opacity-75 blur-xl animate-pulse delay-200"></div>
           </div>
 
           {/* Main CTA Button */}
           <div className="pt-8">
             <button
               onClick={() => navigate('/game')}
-              className="group relative px-10 py-4 
+              className="group relative px-12 py-5 
               bg-gradient-to-r from-emerald-500 to-teal-500
-              text-white text-xl font-medium tracking-wide
+              text-white text-2xl font-medium tracking-wide
               rounded-full
               shadow-[0_8px_32px_rgba(16,185,129,0.3)]
               transition-all duration-300 ease-out
               hover:shadow-[0_12px_40px_rgba(16,185,129,0.45)]
               hover:scale-105
+              hover:rotate-1
               active:scale-98
-              focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:ring-offset-2 focus:ring-offset-black"
+              focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:ring-offset-2 focus:ring-offset-black
+              glass-morphism"
             >
-              <span className="flex items-center gap-2">
+              <span className="flex items-center gap-3">
                 ها نلعب؟
-                <Rocket className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                <Rocket className="w-6 h-6 transition-transform group-hover:translate-x-1 group-hover:-rotate-12" />
               </span>
             </button>
           </div>
 
           {/* Fun Pattern */}
-          <div className="absolute bottom-24 left-0 right-0 h-32 opacity-10 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 blur-3xl"></div>
+          <div className="absolute bottom-24 left-0 right-0 h-48 opacity-10 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 blur-3xl"></div>
         </div>
 
         {/* Footer */}
-        <div className="absolute bottom-8 text-gray-500 text-sm flex items-center gap-2">
+        <div className="absolute bottom-8 text-gray-400 text-sm flex items-center gap-2 animate-pulse">
           <PartyPopper className="w-4 h-4" />
           © 2024 AiWalla. All rights reserved.
           <PartyPopper className="w-4 h-4" />
