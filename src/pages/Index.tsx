@@ -12,7 +12,7 @@ const Index = () => {
         {/* Main Content */}
         <div className="text-center space-y-6 max-w-3xl mx-auto">
           <h1 className="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-300">
-            Kuwait Quiz Hub
+            AiWalla
           </h1>
           
           <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto">
@@ -48,7 +48,7 @@ const Index = () => {
 
         {/* Footer */}
         <div className="absolute bottom-8 text-gray-500 text-sm">
-          © 2024 Kuwait Quiz Hub. All rights reserved.
+          © 2024 AiWalla. All rights reserved.
         </div>
       </div>
     </div>
