@@ -11,9 +11,9 @@ const Index = () => {
       {/* Mascot Background */}
       <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
         <img
-          src="/lovable-uploads/3c6a5c69-554a-4c4e-aaf9-b8b31422068d.png"
+          src="/lovable-uploads/24d532d7-e4f2-4b93-a8b9-e37b26d3e741.png"
           alt="AiWalla Mascot"
-          className="w-[80%] max-w-[800px] object-contain mix-blend-multiply"
+          className="w-[80%] max-w-[800px] object-contain"
         />
       </div>
 
