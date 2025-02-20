@@ -1,13 +1,42 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Auth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
 import { supabase } from '../lib/supabase';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Sparkles } from 'lucide-react';
+import { toast } from "@/components/ui/use-toast";
 
 const Game = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check if user is already logged in
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      if (user) {
+        navigate('/dashboard');
+      }
+    });
+
+    // Set up auth state listener
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_IN') {
+        toast({
+          title: "Welcome!",
+          description: "Successfully signed in.",
+        });
+        navigate('/dashboard');
+      }
+      if (event === 'SIGNED_OUT') {
+        navigate('/');
+      }
+    });
+
+    // Cleanup subscription
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, [navigate]);
 
   return (
     <div className="min-h-screen w-full bg-gradient-to-b from-zinc-900 to-black">
@@ -82,6 +111,13 @@ const Game = () => {
                 },
               }}
               providers={[]}
+              onError={(error) => {
+                toast({
+                  variant: "destructive",
+                  title: "Error",
+                  description: error.message,
+                });
+              }}
             />
           </div>
         </div>
