@@ -9,11 +9,11 @@ const Index = () => {
   return (
     <div className="min-h-screen w-full bg-white overflow-hidden">
       {/* Mascot Background */}
-      <div className="absolute inset-0 pointer-events-none">
+      <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
         <img
           src="/lovable-uploads/a9eb7d1f-f816-4a90-9609-4afa0cbd18df.png"
           alt="AiWalla Mascot"
-          className="absolute w-[100%] h-[100%] object-contain opacity-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+          className="w-[80%] max-w-[800px] object-contain opacity-75"
         />
       </div>
 
