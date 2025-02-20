@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
-import { Trophy, WhatsappIcon, Globe, QrCode } from 'lucide-react';
-import QRCode from 'qrcode.react';
+import { Trophy, MessageCircle, Globe } from 'lucide-react';
+import { QRCodeSVG } from 'qrcode.react'; // Changed to named import
 
 interface QuizCardProps {
   title: string;
@@ -39,7 +39,7 @@ export function QuizCard({ title, description, icon: IconName, whatsappLink, web
           <div className="glass h-full rounded-2xl p-6 flex flex-col items-center justify-center gap-6">
             <div className="space-y-6 w-full">
               <div className="flex flex-col items-center gap-4">
-                <QRCode
+                <QRCodeSVG
                   value={whatsappLink}
                   size={180}
                   level="H"
@@ -52,7 +52,7 @@ export function QuizCard({ title, description, icon: IconName, whatsappLink, web
                   className="flex items-center gap-2 px-4 py-2 bg-[#25D366] text-white rounded-lg hover:bg-[#128C7E] transition-colors"
                   onClick={(e) => e.stopPropagation()}
                 >
-                  <WhatsappIcon className="w-5 h-5" />
+                  <MessageCircle className="w-5 h-5" />
                   <span>Start WhatsApp Quiz</span>
                 </a>
               </div>
