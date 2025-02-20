@@ -1,40 +1,19 @@
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Index = () => {
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    // Ensure the Spline viewer script is loaded
-    const script = document.createElement('script');
-    script.type = 'module';
-    script.src = 'https://unpkg.com/@splinetool/viewer@1.9.68/build/spline-viewer.js';
-    script.onload = () => setIsLoading(false);
-    script.onerror = (error) => console.error('Error loading Spline viewer:', error);
-    document.head.appendChild(script);
-
-    return () => {
-      document.head.removeChild(script);
-    };
-  }, []);
 
   return (
     <div className="min-h-screen w-full">
       {/* Spline viewer container */}
       <div className="absolute inset-0 z-0">
-        {isLoading ? (
-          <div className="flex items-center justify-center h-full bg-black">
-            <div className="text-white">Loading 3D scene...</div>
-          </div>
-        ) : (
-          <spline-viewer 
-            url="https://prod.spline.design/AMfQfn2IbJjCAbao/scene.splinecode"
-            loading-anim
-            events-target="global"
-          />
-        )}
+        <spline-viewer 
+          url="https://prod.spline.design/AMfQfn2IbJjCAbao/scene.splinecode"
+          loading-anim="true"
+          events-target="global"
+        />
       </div>
 
       {/* Content overlay */}
