@@ -7,23 +7,25 @@ const Index = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen w-full bg-white flex flex-col items-center justify-center overflow-hidden">
-      {/* Mascot Image */}
-      <div className="flex-1 flex items-center justify-center w-full max-w-[600px] mx-auto">
-        <img
-          src="/lovable-uploads/3ff2886a-7520-432f-a635-2d10478bbb6c.png"
-          alt="Robot Mascot with Coffee"
-          className="w-full h-auto object-contain"
-        />
-      </div>
+    <div className="min-h-screen w-full bg-black flex flex-col items-center justify-center overflow-hidden">
+      {/* Main Content */}
+      <div className="flex flex-col items-center justify-center gap-8 text-center p-4">
+        {/* Title */}
+        <h1 className="text-6xl md:text-8xl font-bold text-white">
+          AI والله
+        </h1>
+        
+        {/* Subtitle */}
+        <p className="text-xl md:text-2xl text-gray-400">
+          Learn AI concepts through mini-games
+        </p>
 
-      {/* Button */}
-      <div className="w-full flex justify-center pb-12">
+        {/* Button */}
         <button
           onClick={() => navigate('/game')}
-          className="flex items-center gap-2 px-8 py-3 
-          bg-black
-          text-white text-xl font-bold
+          className="mt-8 flex items-center gap-2 px-8 py-3 
+          bg-white
+          text-black text-xl font-bold
           rounded-full
           shadow-lg
           transition-all duration-300 ease-out
