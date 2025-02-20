@@ -8,6 +8,14 @@ import {
 
 export const quizCategories = [
   {
+    title: "إسلاميات - Islamic",
+    description: "اختبر معرفتك في الدين الإسلامي والسيرة النبوية!",
+    icon: Moon,
+    whatsappLink: "https://wa.me/your-bot?text=start_islamic_quiz",
+    webLink: "/quiz/islamic",
+    gradient: "from-emerald-600 to-teal-500"
+  },
+  {
     title: "معلومات عامة - General Knowledge",
     description: "اختبر معلوماتك العامة في مختلف المجالات!",
     icon: Brain,
