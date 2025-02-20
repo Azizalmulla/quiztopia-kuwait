@@ -29,17 +29,22 @@ const Index = () => {
         <div className="text-center p-8">
         </div>
         
-        {/* Futuristic Button */}
+        {/* Modern Gradient Button */}
         <div className="absolute bottom-16 z-20">
           <button
             onClick={() => navigate('/game')}
-            className="px-8 py-4 bg-[#1A1F2C] text-white text-2xl font-bold rounded-lg
-            border border-white/10 backdrop-blur-sm
-            shadow-[0_0_15px_rgba(0,0,0,0.2)]
-            transition-all duration-300
-            hover:bg-[#2A2F3C] hover:scale-105 hover:shadow-[0_0_25px_rgba(0,0,0,0.3)]
-            active:transform active:scale-95
-            hover:border-white/20"
+            className="px-10 py-4 
+            bg-gradient-to-r from-[#6E59A5] to-[#7E69AB]
+            text-white text-xl font-medium tracking-wide
+            rounded-full
+            border border-white/20
+            shadow-[0_8px_32px_rgba(110,89,165,0.3)]
+            backdrop-blur-md
+            transition-all duration-300 ease-out
+            hover:shadow-[0_12px_40px_rgba(110,89,165,0.45)]
+            hover:scale-105 hover:border-white/30
+            active:scale-98
+            focus:outline-none focus:ring-2 focus:ring-[#6E59A5]/50 focus:ring-offset-2 focus:ring-offset-black"
           >
             ها نلعب؟
           </button>
