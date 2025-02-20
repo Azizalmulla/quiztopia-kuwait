@@ -6,11 +6,11 @@ const Index = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen w-full">
+    <div className="min-h-screen w-full bg-black">
       {/* Spline viewer container */}
       <div className="absolute inset-0 z-0">
         <spline-viewer 
-          url="https://prod.spline.design/AMfQfn2IbJjCAbao/scene.splinecode"
+          url="https://prod.spline.design/6Wq1Q7YGyM-iab9i/scene.splinecode"
           loading-anim="true"
           events-target="global"
         />
