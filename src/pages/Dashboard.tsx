@@ -286,7 +286,7 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-b from-zinc-900 to-black">
+    <div className="h-screen w-full bg-gradient-to-b from-zinc-900 to-black overflow-y-auto">
       {/* Animated Background Effects */}
       <div className="fixed inset-0 pointer-events-none">
         {/* Floating circles */}
@@ -298,32 +298,33 @@ const Dashboard = () => {
         <div className="absolute bottom-1/3 left-1/4 w-20 h-20 bg-gradient-to-r from-orange-500/20 to-yellow-500/20 rounded-full blur-2xl animate-bounce delay-500"></div>
       </div>
 
-      <div className="relative min-h-screen w-full overflow-auto">
-        <div className="container mx-auto px-4 py-12 relative z-10">
-          {/* Header */}
-          <div className="sticky top-0 z-20 backdrop-blur-md bg-black/50 -mx-4 px-4 py-4 mb-8">
-            <div className="flex items-center justify-between">
-              <button
-                onClick={() => navigate('/')}
-                className="group flex items-center gap-2 text-white/70 hover:text-white transition-colors"
-              >
-                <ArrowLeft className="w-5 h-5 transition-transform group-hover:-translate-x-1" />
-                Back
-              </button>
-              <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400 animate-fade-in">
-                Quiz Categories
-              </h1>
-              <button
-                onClick={() => supabase.auth.signOut()}
-                className="px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 text-white/70 hover:text-white transition-all duration-200"
-              >
-                Sign Out
-              </button>
-            </div>
+      {/* Content Container */}
+      <div className="relative w-full">
+        {/* Header - Now sticky */}
+        <div className="sticky top-0 z-20 backdrop-blur-md bg-black/50 px-4 py-4 mb-8">
+          <div className="container mx-auto flex items-center justify-between">
+            <button
+              onClick={() => navigate('/')}
+              className="group flex items-center gap-2 text-white/70 hover:text-white transition-colors"
+            >
+              <ArrowLeft className="w-5 h-5 transition-transform group-hover:-translate-x-1" />
+              Back
+            </button>
+            <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">
+              Quiz Categories
+            </h1>
+            <button
+              onClick={() => supabase.auth.signOut()}
+              className="px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 text-white/70 hover:text-white transition-all duration-200"
+            >
+              Sign Out
+            </button>
           </div>
+        </div>
 
-          {/* Categories Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-[1600px] mx-auto pb-20">
+        {/* Main Content */}
+        <div className="container mx-auto px-4 pb-20">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-[1600px] mx-auto">
             {categories.map((category, index) => (
               <div
                 key={category.title}
