@@ -1,11 +1,8 @@
 
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error('Supabase URL and Anon Key are required. Please make sure you have connected your Supabase project in the Lovable dashboard.');
-}
-
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// Initialize the Supabase client with the project URL and anon key
+export const supabase = createClient(
+  'https://aieomcawcimnvwyizsyv.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFpZW9tY2F3Y2ltbnZ3eWl6c3l2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDAwNjY2OTYsImV4cCI6MjA1NTY0MjY5Nn0.Rt6OUKRo_gowbVlOcsC-97molkNYMYbMa2E7pV60_Ng'
+);
