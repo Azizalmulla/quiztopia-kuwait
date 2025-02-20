@@ -1,18 +1,26 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Index = () => {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
 
   return (
     <div className="min-h-screen w-full bg-black">
       {/* Spline viewer container */}
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-0 w-full h-screen">
+        {isLoading && (
+          <div className="absolute inset-0 flex items-center justify-center text-white">
+            Loading 3D Scene...
+          </div>
+        )}
         <spline-viewer 
           url="https://prod.spline.design/AMfQfn2IbJjCAbao/scene.splinecode"
           loading-anim="true"
           events-target="global"
+          style={{ width: '100%', height: '100%' }}
+          onLoad={() => setIsLoading(false)}
         />
       </div>
 
