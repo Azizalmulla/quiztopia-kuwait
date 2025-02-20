@@ -1,3 +1,4 @@
+
 import { 
   Flag, Utensils, ShoppingBag, Clapperboard, Moon, Cpu,
   Music, Palette, Car, Building, Trophy, Book, Dumbbell, Bird,
@@ -11,7 +12,7 @@ export const quizCategories = [
     title: "معلومات عامة - General Knowledge",
     description: "اختبر معلوماتك العامة في مختلف المجالات!",
     icon: Brain,
-    imageUrl: "/placeholder.svg", // Add your cute image URL here
+    imageUrl: "https://images.unsplash.com/photo-1582562124811-c09040d0a901",
     whatsappLink: "https://wa.me/your-bot?text=start_general_quiz",
     webLink: "/quiz/general",
     gradient: "from-indigo-600 to-violet-500"
@@ -20,7 +21,7 @@ export const quizCategories = [
     title: "علم الدول - Flags",
     description: "شارك في تحدي الأعلام و اختبر معرفتك بدول العالم!",
     icon: Flag,
-    imageUrl: "/placeholder.svg", // Add your cute image URL here
+    imageUrl: "https://images.unsplash.com/photo-1535268647677-300dbf3d78d1",
     whatsappLink: "https://wa.me/your-bot?text=start_flags_quiz",
     webLink: "/quiz/flags",
     gradient: "from-blue-500 to-cyan-400"
@@ -29,6 +30,7 @@ export const quizCategories = [
     title: "المطبخ العالمي - Food",
     description: "اكتشف عالم المأكولات و المطابخ العالمية!",
     icon: Utensils,
+    imageUrl: "https://images.unsplash.com/photo-1501286353178-1ec881214838",
     whatsappLink: "https://wa.me/your-bot?text=start_food_quiz",
     webLink: "/quiz/food",
     gradient: "from-orange-500 to-yellow-400"
