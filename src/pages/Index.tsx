@@ -18,20 +18,20 @@ const Index = () => {
         
         {/* Arabic Pattern Overlay */}
         <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-[10%] left-[15%] w-32 h-32 bg-gradient-to-r from-[#c7a449] to-[#e2b742] rounded-full blur-3xl"></div>
-          <div className="absolute top-[40%] right-[15%] w-40 h-40 bg-gradient-to-r from-[#e2b742] to-[#c7a449] rounded-full blur-3xl"></div>
-          <div className="absolute bottom-[20%] left-[25%] w-36 h-36 bg-gradient-to-r from-[#b38728] to-[#e2b742] rounded-full blur-3xl"></div>
+          <div className="absolute top-[10%] left-[15%] w-32 h-32 bg-gradient-to-r from-[#9b87f5] to-[#D6BCFA] rounded-full blur-3xl"></div>
+          <div className="absolute top-[40%] right-[15%] w-40 h-40 bg-gradient-to-r from-[#D6BCFA] to-[#7E69AB] rounded-full blur-3xl"></div>
+          <div className="absolute bottom-[20%] left-[25%] w-36 h-36 bg-gradient-to-r from-[#6E59A5] to-[#9b87f5] rounded-full blur-3xl"></div>
         </div>
 
         {/* Animated Stars */}
         <div className="absolute top-20 left-[20%] animate-pulse delay-100">
-          <Stars className="w-8 h-8 text-[#e2b742] opacity-60" />
+          <Stars className="w-8 h-8 text-[#D6BCFA] opacity-60" />
         </div>
         <div className="absolute top-40 right-[25%] animate-pulse delay-300">
-          <Moon className="w-6 h-6 text-[#c7a449] opacity-60" />
+          <Moon className="w-6 h-6 text-[#9b87f5] opacity-60" />
         </div>
         <div className="absolute bottom-32 left-[30%] animate-pulse delay-500">
-          <Stars className="w-5 h-5 text-[#b38728] opacity-60" />
+          <Stars className="w-5 h-5 text-[#7E69AB] opacity-60" />
         </div>
       </div>
 
@@ -41,22 +41,22 @@ const Index = () => {
         <div className="text-center space-y-8 max-w-3xl mx-auto animate-fade-in">
           {/* Brand Name */}
           <div className="relative">
-            <div className="absolute inset-0 blur-2xl opacity-50 bg-gradient-to-r from-[#b38728] via-[#c7a449] to-[#e2b742]"></div>
-            <h1 className="text-5xl md:text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#b38728] via-[#c7a449] to-[#e2b742] animate-pulse relative">
+            <div className="absolute inset-0 blur-2xl opacity-50 bg-gradient-to-r from-[#6E59A5] via-[#9b87f5] to-[#D6BCFA]"></div>
+            <h1 className="text-5xl md:text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#6E59A5] via-[#9b87f5] to-[#D6BCFA] animate-pulse relative">
               AiWalla
             </h1>
           </div>
           
           {/* Tagline */}
-          <p className="text-2xl md:text-3xl text-[#e2b742] font-medium">
+          <p className="text-2xl md:text-3xl text-[#D6BCFA] font-medium">
             اختبر معلوماتك
           </p>
 
           {/* Digital Lines */}
           <div className="flex gap-4 justify-center my-12 relative">
-            <div className="w-20 h-20 rounded-full bg-gradient-to-r from-[#b38728] to-[#c7a449] opacity-75 blur-xl animate-pulse"></div>
-            <div className="w-20 h-20 rounded-full bg-gradient-to-r from-[#c7a449] to-[#e2b742] opacity-75 blur-xl animate-pulse delay-100"></div>
-            <div className="w-20 h-20 rounded-full bg-gradient-to-r from-[#e2b742] to-[#b38728] opacity-75 blur-xl animate-pulse delay-200"></div>
+            <div className="w-20 h-20 rounded-full bg-gradient-to-r from-[#6E59A5] to-[#9b87f5] opacity-75 blur-xl animate-pulse"></div>
+            <div className="w-20 h-20 rounded-full bg-gradient-to-r from-[#9b87f5] to-[#D6BCFA] opacity-75 blur-xl animate-pulse delay-100"></div>
+            <div className="w-20 h-20 rounded-full bg-gradient-to-r from-[#D6BCFA] to-[#7E69AB] opacity-75 blur-xl animate-pulse delay-200"></div>
           </div>
 
           {/* Main CTA Button */}
@@ -64,16 +64,16 @@ const Index = () => {
             <button
               onClick={() => navigate('/game')}
               className="group relative px-12 py-5 
-              bg-gradient-to-r from-[#b38728] to-[#e2b742]
-              text-[#1a1a2e] text-2xl font-bold tracking-wide
+              bg-gradient-to-r from-[#6E59A5] to-[#9b87f5]
+              text-white text-2xl font-bold tracking-wide
               rounded-full
-              shadow-[0_8px_32px_rgba(226,183,66,0.3)]
+              shadow-[0_8px_32px_rgba(155,135,245,0.3)]
               transition-all duration-300 ease-out
-              hover:shadow-[0_12px_40px_rgba(226,183,66,0.45)]
+              hover:shadow-[0_12px_40px_rgba(155,135,245,0.45)]
               hover:scale-105
               hover:rotate-1
               active:scale-98
-              focus:outline-none focus:ring-2 focus:ring-[#e2b742]/50 focus:ring-offset-2 focus:ring-offset-[#1a1a2e]
+              focus:outline-none focus:ring-2 focus:ring-[#9b87f5]/50 focus:ring-offset-2 focus:ring-offset-[#1a1a2e]
               glass-morphism"
             >
               <span className="flex items-center gap-3">
@@ -85,7 +85,7 @@ const Index = () => {
         </div>
 
         {/* Footer */}
-        <div className="absolute bottom-8 text-[#c7a449] text-sm flex items-center gap-2 animate-pulse">
+        <div className="absolute bottom-8 text-[#9b87f5] text-sm flex items-center gap-2 animate-pulse">
           <Moon className="w-4 h-4" />
           © 2024 AiWalla. All rights reserved.
           <Moon className="w-4 h-4" />
