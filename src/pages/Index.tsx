@@ -13,12 +13,12 @@ const Index = () => {
         <img
           src="/lovable-uploads/3c6a5c69-554a-4c4e-aaf9-b8b31422068d.png"
           alt="AiWalla Mascot"
-          className="w-[80%] max-w-[800px] object-contain opacity-75"
+          className="w-[80%] max-w-[800px] object-contain mix-blend-multiply"
         />
       </div>
 
       {/* Button */}
-      <div className="relative z-10 flex items-center justify-center min-h-screen">
+      <div className="relative z-10 flex items-end justify-center min-h-screen pb-32">
         <button
           onClick={() => navigate('/game')}
           className="group relative px-12 py-5 
