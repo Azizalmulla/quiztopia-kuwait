@@ -1,17 +1,40 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { QuizCard } from '@/components/QuizCard';
 import { ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { supabase } from '@/lib/supabase';
 
 const Dashboard = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check authentication status
+    supabase.auth.getUser().then(({ data: { user }, error }) => {
+      if (error || !user) {
+        // Redirect to auth page if not authenticated
+        navigate('/game');
+      }
+    });
+
+    // Set up auth state listener
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_OUT' || !session) {
+        navigate('/game');
+      }
+    });
+
+    // Cleanup subscription
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, [navigate]);
 
   const categories = [
     {
       title: "علم الدول - Flags",
       description: "شارك في تحدي الأعلام و اختبر معرفتك بدول العالم!",
-      icon: 'Trophy' as const, // Type assertion to ensure it matches QuizCardProps
+      icon: 'Trophy' as const,
       whatsappLink: "https://wa.me/your-bot?text=start_flags_quiz",
       webLink: "/quiz/flags"
     },
