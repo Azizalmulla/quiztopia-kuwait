@@ -10,7 +10,7 @@ const Index = () => {
       {/* Spline viewer container */}
       <div className="absolute inset-0 z-0">
         <spline-viewer 
-          url="https://prod.spline.design/6Wq1Q7YGyM-iab9i/scene.splinecode"
+          url="https://prod.spline.design/AMfQfn2IbJjCAbao/scene.splinecode"
           loading-anim="true"
           events-target="global"
         />
