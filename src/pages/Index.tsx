@@ -35,7 +35,7 @@ const Index = () => {
           </div>
           
           <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto">
-            اختبر معرفتك بالكويت من خلال مجموعة متنوعة من الأسئلة الشيقة
+            اختبر معلوماتك
           </p>
 
           {/* Animated Decorative elements */}
