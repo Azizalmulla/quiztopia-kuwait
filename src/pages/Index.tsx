@@ -7,36 +7,32 @@ const Index = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen w-full bg-white overflow-hidden">
-      {/* Mascot Background */}
-      <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
+    <div className="min-h-screen w-full bg-white flex flex-col items-center justify-center overflow-hidden">
+      {/* Mascot Image */}
+      <div className="flex-1 flex items-center justify-center w-full max-w-[600px] mx-auto">
         <img
-          src="/lovable-uploads/24d532d7-e4f2-4b93-a8b9-e37b26d3e741.png"
-          alt="AiWalla Mascot"
-          className="w-[80%] max-w-[800px] object-contain"
+          src="/lovable-uploads/37fe5675-8e85-498e-a6dc-d8fbf86d8517.png"
+          alt="Robot Mascot"
+          className="w-full h-auto object-contain"
         />
       </div>
 
       {/* Button */}
-      <div className="relative z-10 flex items-end justify-center min-h-screen pb-32">
+      <div className="w-full flex justify-center pb-12">
         <button
           onClick={() => navigate('/game')}
-          className="group relative px-12 py-5 
+          className="flex items-center gap-2 px-8 py-3 
           bg-black
-          text-white text-2xl font-bold tracking-wide
+          text-white text-xl font-bold
           rounded-full
-          shadow-[0_8px_32px_rgba(0,0,0,0.2)]
+          shadow-lg
           transition-all duration-300 ease-out
-          hover:shadow-[0_12px_40px_rgba(0,0,0,0.3)]
+          hover:shadow-xl
           hover:scale-105
-          hover:rotate-1
-          active:scale-98
-          focus:outline-none focus:ring-2 focus:ring-black/50 focus:ring-offset-2 focus:ring-offset-white"
+          active:scale-98"
         >
-          <span className="flex items-center gap-3">
-            ها نلعب؟
-            <Coffee className="w-6 h-6" />
-          </span>
+          ها نلعب؟
+          <Coffee className="w-5 h-5" />
         </button>
       </div>
     </div>
