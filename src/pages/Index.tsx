@@ -7,16 +7,16 @@ const Index = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen w-full bg-black flex flex-col items-center justify-center overflow-hidden">
+    <div className="min-h-screen w-full bg-white flex flex-col items-center justify-center overflow-hidden">
       {/* Main Content */}
       <div className="flex flex-col items-center justify-center gap-8 text-center p-4">
         {/* Title */}
-        <h1 className="text-6xl md:text-8xl font-bold text-white">
+        <h1 className="text-6xl md:text-8xl font-bold text-black">
           AI والله
         </h1>
         
         {/* Subtitle */}
-        <p className="text-xl md:text-2xl text-gray-400">
+        <p className="text-xl md:text-2xl text-gray-600">
           Learn AI concepts through mini-games
         </p>
 
@@ -24,8 +24,8 @@ const Index = () => {
         <button
           onClick={() => navigate('/game')}
           className="mt-8 flex items-center gap-2 px-8 py-3 
-          bg-white
-          text-black text-xl font-bold
+          bg-black
+          text-white text-xl font-bold
           rounded-full
           shadow-lg
           transition-all duration-300 ease-out
