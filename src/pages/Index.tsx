@@ -33,22 +33,22 @@ const Index = () => {
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4">
         {/* Main Content */}
         <div className="text-center space-y-8 max-w-3xl mx-auto animate-fade-in">
-          {/* Logo Area */}
-          <div className="relative inline-block">
-            {/* Brand Name */}
-            <div className="relative">
-              <div className="absolute inset-0 blur-2xl opacity-50 bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400"></div>
-              <h1 className="text-5xl md:text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 animate-pulse relative">
-                AiWalla
-              </h1>
-            </div>
-            {/* Decorative Elements */}
-            <div className="absolute -top-8 -right-8 animate-spin-slow">
-              <Sparkles className="w-8 h-8 text-yellow-400" />
-            </div>
-            <div className="absolute -bottom-4 -left-8 animate-spin-slow delay-150">
-              <Sparkles className="w-6 h-6 text-emerald-400" />
-            </div>
+          {/* Mascot Image */}
+          <div className="relative w-64 h-64 mx-auto mb-8">
+            <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 rounded-full blur-3xl"></div>
+            <img
+              src="/lovable-uploads/a9eb7d1f-f816-4a90-9609-4afa0cbd18df.png"
+              alt="AiWalla Mascot"
+              className="relative w-full h-full object-contain drop-shadow-[0_0_15px_rgba(16,185,129,0.3)]"
+            />
+          </div>
+          
+          {/* Brand Name */}
+          <div className="relative">
+            <div className="absolute inset-0 blur-2xl opacity-50 bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400"></div>
+            <h1 className="text-5xl md:text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 animate-pulse relative">
+              AiWalla
+            </h1>
           </div>
           
           {/* Tagline */}
@@ -86,9 +86,6 @@ const Index = () => {
               </span>
             </button>
           </div>
-
-          {/* Fun Pattern */}
-          <div className="absolute bottom-24 left-0 right-0 h-48 opacity-10 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 blur-3xl"></div>
         </div>
 
         {/* Footer */}
