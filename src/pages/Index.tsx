@@ -13,7 +13,7 @@ const Index = () => {
         <img
           src="/lovable-uploads/a9eb7d1f-f816-4a90-9609-4afa0cbd18df.png"
           alt="AiWalla Mascot"
-          className="absolute w-[150%] h-[150%] object-contain opacity-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-pulse"
+          className="absolute w-[150%] h-[150%] object-contain opacity-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
         />
         
         {/* Arabic Pattern Overlay */}
@@ -23,14 +23,14 @@ const Index = () => {
           <div className="absolute bottom-[20%] left-[25%] w-36 h-36 bg-gradient-to-r from-[#6E59A5] to-[#9b87f5] rounded-full blur-3xl"></div>
         </div>
 
-        {/* Animated Stars */}
-        <div className="absolute top-20 left-[20%] animate-pulse delay-100">
+        {/* Stars */}
+        <div className="absolute top-20 left-[20%]">
           <Stars className="w-8 h-8 text-[#D6BCFA] opacity-60" />
         </div>
-        <div className="absolute top-40 right-[25%] animate-pulse delay-300">
+        <div className="absolute top-40 right-[25%]">
           <Moon className="w-6 h-6 text-[#9b87f5] opacity-60" />
         </div>
-        <div className="absolute bottom-32 left-[30%] animate-pulse delay-500">
+        <div className="absolute bottom-32 left-[30%]">
           <Stars className="w-5 h-5 text-[#7E69AB] opacity-60" />
         </div>
       </div>
@@ -38,11 +38,11 @@ const Index = () => {
       {/* Hero Section */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4">
         {/* Main Content */}
-        <div className="text-center space-y-8 max-w-3xl mx-auto animate-fade-in">
+        <div className="text-center space-y-8 max-w-3xl mx-auto">
           {/* Brand Name */}
           <div className="relative">
             <div className="absolute inset-0 blur-2xl opacity-50 bg-gradient-to-r from-[#6E59A5] via-[#9b87f5] to-[#D6BCFA]"></div>
-            <h1 className="text-5xl md:text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#6E59A5] via-[#9b87f5] to-[#D6BCFA] animate-pulse relative">
+            <h1 className="text-5xl md:text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#6E59A5] via-[#9b87f5] to-[#D6BCFA] relative">
               AiWalla
             </h1>
           </div>
@@ -54,9 +54,9 @@ const Index = () => {
 
           {/* Digital Lines */}
           <div className="flex gap-4 justify-center my-12 relative">
-            <div className="w-20 h-20 rounded-full bg-gradient-to-r from-[#6E59A5] to-[#9b87f5] opacity-75 blur-xl animate-pulse"></div>
-            <div className="w-20 h-20 rounded-full bg-gradient-to-r from-[#9b87f5] to-[#D6BCFA] opacity-75 blur-xl animate-pulse delay-100"></div>
-            <div className="w-20 h-20 rounded-full bg-gradient-to-r from-[#D6BCFA] to-[#7E69AB] opacity-75 blur-xl animate-pulse delay-200"></div>
+            <div className="w-20 h-20 rounded-full bg-gradient-to-r from-[#6E59A5] to-[#9b87f5] opacity-75 blur-xl"></div>
+            <div className="w-20 h-20 rounded-full bg-gradient-to-r from-[#9b87f5] to-[#D6BCFA] opacity-75 blur-xl"></div>
+            <div className="w-20 h-20 rounded-full bg-gradient-to-r from-[#D6BCFA] to-[#7E69AB] opacity-75 blur-xl"></div>
           </div>
 
           {/* Main CTA Button */}
@@ -78,14 +78,14 @@ const Index = () => {
             >
               <span className="flex items-center gap-3">
                 ها نلعب؟
-                <Coffee className="w-6 h-6 transition-transform group-hover:translate-x-1 group-hover:-rotate-12" />
+                <Coffee className="w-6 h-6" />
               </span>
             </button>
           </div>
         </div>
 
         {/* Footer */}
-        <div className="absolute bottom-8 text-[#9b87f5] text-sm flex items-center gap-2 animate-pulse">
+        <div className="absolute bottom-8 text-[#9b87f5] text-sm flex items-center gap-2">
           <Moon className="w-4 h-4" />
           © 2024 AiWalla. All rights reserved.
           <Moon className="w-4 h-4" />
