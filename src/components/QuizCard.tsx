@@ -1,55 +1,53 @@
 
 import { useState } from 'react';
-import { Trophy, MessageCircle, Globe } from 'lucide-react';
-import { QRCodeSVG } from 'qrcode.react'; // Changed to named import
+import { MessageCircle, Globe } from 'lucide-react';
+import { QRCodeSVG } from 'qrcode.react';
 
 interface QuizCardProps {
   title: string;
   description: string;
-  icon: keyof typeof icons;
+  icon: any;
   whatsappLink: string;
   webLink: string;
+  gradient: string;
 }
 
-const icons = {
-  Trophy,
-};
-
-export function QuizCard({ title, description, icon: IconName, whatsappLink, webLink }: QuizCardProps) {
+export function QuizCard({ title, description, icon: Icon, whatsappLink, webLink, gradient }: QuizCardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
-  const Icon = icons[IconName];
 
   return (
     <div
-      className="card-flip w-full h-[400px] cursor-pointer"
+      className="card-flip w-full h-[400px] cursor-pointer group perspective"
       onClick={() => setIsFlipped(!isFlipped)}
     >
-      <div className={`card-flip-inner ${isFlipped ? 'flipped' : ''}`}>
+      <div className={`card-flip-inner ${isFlipped ? 'flipped' : ''} duration-700`}>
         <div className="card-front">
-          <div className="glass h-full rounded-2xl p-6 flex flex-col items-center justify-center gap-6 transition-all duration-300 hover:shadow-lg">
-            <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center">
-              <Icon className="w-10 h-10 text-primary" />
+          <div className={`glass h-full rounded-2xl p-8 flex flex-col items-center justify-center gap-6 transition-all duration-300 hover:shadow-lg hover:shadow-${gradient} border border-white/5 group-hover:border-white/10`}>
+            <div className={`w-24 h-24 rounded-full bg-gradient-to-r ${gradient} p-0.5`}>
+              <div className="w-full h-full rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center">
+                <Icon className="w-12 h-12 text-white transform group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300" />
+              </div>
             </div>
-            <h3 className="text-2xl font-semibold text-foreground">{title}</h3>
-            <p className="text-muted-foreground text-center">{description}</p>
+            <h3 className="text-2xl font-semibold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-white/70 transition-all duration-300">{title}</h3>
+            <p className="text-white/70 text-center transition-colors duration-300 group-hover:text-white/90">{description}</p>
           </div>
         </div>
         
         <div className="card-back">
-          <div className="glass h-full rounded-2xl p-6 flex flex-col items-center justify-center gap-6">
+          <div className="glass h-full rounded-2xl p-8 flex flex-col items-center justify-center gap-6 border border-white/5 group-hover:border-white/10">
             <div className="space-y-6 w-full">
               <div className="flex flex-col items-center gap-4">
                 <QRCodeSVG
                   value={whatsappLink}
                   size={180}
                   level="H"
-                  className="rounded-lg"
+                  className="rounded-lg bg-white p-2 transform transition-transform duration-300 group-hover:scale-105"
                 />
                 <a
                   href={whatsappLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-4 py-2 bg-[#25D366] text-white rounded-lg hover:bg-[#128C7E] transition-colors"
+                  className="flex items-center gap-2 px-6 py-3 bg-[#25D366] text-white rounded-full hover:bg-[#128C7E] transition-colors duration-300"
                   onClick={(e) => e.stopPropagation()}
                 >
                   <MessageCircle className="w-5 h-5" />
@@ -62,7 +60,7 @@ export function QuizCard({ title, description, icon: IconName, whatsappLink, web
                   href={webLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
+                  className={`flex items-center gap-2 px-6 py-3 bg-gradient-to-r ${gradient} text-white rounded-full hover:opacity-90 transition-all duration-300 transform hover:-translate-y-0.5`}
                   onClick={(e) => e.stopPropagation()}
                 >
                   <Globe className="w-5 h-5" />
