@@ -46,7 +46,7 @@ const Index = () => {
         {/* Subtitle with glass effect */}
         <div className="relative glass rounded-2xl px-8 py-4 backdrop-blur-md bg-white/[0.02]">
           <p className="text-xl md:text-2xl text-white/80 font-medium">
-            Learn AI concepts through mini-games
+            Challenge yourself with autonomous trivia quizzes
           </p>
           <div className="absolute -inset-[1px] -z-10 rounded-2xl bg-gradient-to-r from-emerald-500/10 to-green-500/10 blur-sm" />
         </div>
