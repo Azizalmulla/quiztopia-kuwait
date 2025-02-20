@@ -104,6 +104,12 @@ const Dashboard = () => {
           <h1 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">
             Quiz Categories
           </h1>
+          <button
+            onClick={() => supabase.auth.signOut()}
+            className="text-white/70 hover:text-white transition-colors"
+          >
+            Sign Out
+          </button>
         </div>
 
         {/* Categories Grid */}
