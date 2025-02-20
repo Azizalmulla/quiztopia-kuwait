@@ -30,6 +30,16 @@ const Game = () => {
       if (event === 'SIGNED_OUT') {
         navigate('/');
       }
+      if (event === 'USER_UPDATED') {
+        toast({
+          title: "Account Updated",
+          description: "Your account has been updated.",
+        });
+      }
+      // Handle authentication errors
+      if (event === 'INITIAL_SESSION' && !session) {
+        console.log('No session found');
+      }
     });
 
     // Cleanup subscription
@@ -111,13 +121,6 @@ const Game = () => {
                 },
               }}
               providers={[]}
-              onError={(error) => {
-                toast({
-                  variant: "destructive",
-                  title: "Error",
-                  description: error.message,
-                });
-              }}
             />
           </div>
         </div>
