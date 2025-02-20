@@ -8,8 +8,14 @@ const Index = () => {
 
   return (
     <div className="min-h-screen w-full bg-gradient-to-b from-[#1a1a2e] to-[#16213e] overflow-hidden">
-      {/* Background Pattern */}
+      {/* Mascot Background */}
       <div className="absolute inset-0 pointer-events-none">
+        <img
+          src="/lovable-uploads/a9eb7d1f-f816-4a90-9609-4afa0cbd18df.png"
+          alt="AiWalla Mascot"
+          className="absolute w-[150%] h-[150%] object-contain opacity-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-pulse"
+        />
+        
         {/* Arabic Pattern Overlay */}
         <div className="absolute inset-0 opacity-5">
           <div className="absolute top-[10%] left-[15%] w-32 h-32 bg-gradient-to-r from-[#c7a449] to-[#e2b742] rounded-full blur-3xl"></div>
@@ -33,16 +39,6 @@ const Index = () => {
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4">
         {/* Main Content */}
         <div className="text-center space-y-8 max-w-3xl mx-auto animate-fade-in">
-          {/* Mascot Image */}
-          <div className="relative w-72 h-72 mx-auto mb-8">
-            <div className="absolute inset-0 bg-gradient-to-r from-[#b38728]/20 to-[#e2b742]/20 rounded-full blur-3xl"></div>
-            <img
-              src="/lovable-uploads/a9eb7d1f-f816-4a90-9609-4afa0cbd18df.png"
-              alt="AiWalla Mascot"
-              className="relative w-full h-full object-contain drop-shadow-[0_0_25px_rgba(226,183,66,0.3)]"
-            />
-          </div>
-          
           {/* Brand Name */}
           <div className="relative">
             <div className="absolute inset-0 blur-2xl opacity-50 bg-gradient-to-r from-[#b38728] via-[#c7a449] to-[#e2b742]"></div>
