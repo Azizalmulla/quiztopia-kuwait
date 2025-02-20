@@ -286,9 +286,9 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-b from-zinc-900 to-black overflow-x-hidden">
+    <div className="min-h-screen w-full bg-gradient-to-b from-zinc-900 to-black">
       {/* Animated Background Effects */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+      <div className="fixed inset-0 pointer-events-none">
         {/* Floating circles */}
         <div className="absolute top-[10%] left-[15%] w-32 h-32 bg-gradient-to-r from-emerald-500/30 to-cyan-500/30 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute bottom-[20%] right-[15%] w-40 h-40 bg-gradient-to-r from-purple-500/30 to-pink-500/30 rounded-full blur-3xl animate-pulse delay-300"></div>
@@ -298,38 +298,42 @@ const Dashboard = () => {
         <div className="absolute bottom-1/3 left-1/4 w-20 h-20 bg-gradient-to-r from-orange-500/20 to-yellow-500/20 rounded-full blur-2xl animate-bounce delay-500"></div>
       </div>
 
-      <div className="container mx-auto px-4 py-12 relative z-10">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-16">
-          <button
-            onClick={() => navigate('/')}
-            className="group flex items-center gap-2 text-white/70 hover:text-white transition-colors"
-          >
-            <ArrowLeft className="w-5 h-5 transition-transform group-hover:-translate-x-1" />
-            Back
-          </button>
-          <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400 animate-fade-in">
-            Quiz Categories
-          </h1>
-          <button
-            onClick={() => supabase.auth.signOut()}
-            className="px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 text-white/70 hover:text-white transition-all duration-200"
-          >
-            Sign Out
-          </button>
-        </div>
-
-        {/* Categories Grid with adjusted spacing and responsive columns */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-[1600px] mx-auto">
-          {categories.map((category, index) => (
-            <div
-              key={category.title}
-              className="animate-fade-in transform hover:scale-105 transition-transform duration-200"
-              style={{ animationDelay: `${index * 100}ms` }}
-            >
-              <QuizCard {...category} />
+      <div className="relative min-h-screen w-full overflow-auto">
+        <div className="container mx-auto px-4 py-12 relative z-10">
+          {/* Header */}
+          <div className="sticky top-0 z-20 backdrop-blur-md bg-black/50 -mx-4 px-4 py-4 mb-8">
+            <div className="flex items-center justify-between">
+              <button
+                onClick={() => navigate('/')}
+                className="group flex items-center gap-2 text-white/70 hover:text-white transition-colors"
+              >
+                <ArrowLeft className="w-5 h-5 transition-transform group-hover:-translate-x-1" />
+                Back
+              </button>
+              <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400 animate-fade-in">
+                Quiz Categories
+              </h1>
+              <button
+                onClick={() => supabase.auth.signOut()}
+                className="px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 text-white/70 hover:text-white transition-all duration-200"
+              >
+                Sign Out
+              </button>
             </div>
-          ))}
+          </div>
+
+          {/* Categories Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-[1600px] mx-auto pb-20">
+            {categories.map((category, index) => (
+              <div
+                key={category.title}
+                className="animate-fade-in transform hover:scale-105 transition-transform duration-200"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <QuizCard {...category} />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
