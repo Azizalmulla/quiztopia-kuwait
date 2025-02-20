@@ -4,22 +4,22 @@ import { QuizCard } from '@/components/QuizCard';
 
 const quizCategories = [
   {
-    title: "Kuwait History",
-    description: "Test your knowledge about Kuwait's rich history and cultural heritage",
+    title: "World History",
+    description: "Test your knowledge about world history with questions in Kuwaiti dialect",
     icon: "Trophy" as const,
-    whatsappLink: "https://wa.me/1234567890?text=Start%20Kuwait%20History%20Quiz",
+    whatsappLink: "https://wa.me/1234567890?text=Start%20World%20History%20Quiz",
     webLink: "/quiz/history"
   },
   {
-    title: "Local Cuisine",
-    description: "Explore the flavors and traditions of Kuwaiti cuisine",
+    title: "International Cuisine",
+    description: "Explore global cuisines and dishes with a Kuwaiti twist",
     icon: "Trophy" as const,
     whatsappLink: "https://wa.me/1234567890?text=Start%20Cuisine%20Quiz",
     webLink: "/quiz/cuisine"
   },
   {
-    title: "Geography",
-    description: "Discover Kuwait's landscapes and geographical features",
+    title: "World Geography",
+    description: "Discover countries and landmarks around the globe, explained in Kuwaiti dialect",
     icon: "Trophy" as const,
     whatsappLink: "https://wa.me/1234567890?text=Start%20Geography%20Quiz",
     webLink: "/quiz/geography"
@@ -32,10 +32,10 @@ const Index = () => {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16 floating">
           <h1 className="text-4xl font-bold tracking-tight sm:text-6xl bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60">
-            Kuwait Quiz Hub
+            Global Quiz Hub
           </h1>
           <p className="mt-6 text-lg leading-8 text-muted-foreground max-w-2xl mx-auto">
-            Explore Kuwait's rich culture and heritage through our interactive quizzes. Choose your preferred way to play - WhatsApp or Web!
+            Explore the world through our interactive quizzes in Kuwaiti dialect. Choose your preferred way to play - WhatsApp or Web!
           </p>
         </div>
 
