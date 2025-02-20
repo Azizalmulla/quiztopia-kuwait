@@ -61,7 +61,6 @@ const Game = () => {
                       inputBorder: 'rgba(255, 255, 255, 0.1)',
                       inputText: 'white',
                       inputLabelText: 'rgba(255, 255, 255, 0.8)',
-                      backgroundSecondary: 'rgba(255, 255, 255, 0.03)',
                       defaultButtonBackground: 'rgba(255, 255, 255, 0.05)',
                       defaultButtonBackgroundHover: 'rgba(255, 255, 255, 0.08)',
                     },
