@@ -13,7 +13,7 @@ const Index = () => {
         <img
           src="/lovable-uploads/a9eb7d1f-f816-4a90-9609-4afa0cbd18df.png"
           alt="AiWalla Mascot"
-          className="absolute w-[150%] h-[150%] object-contain opacity-5 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+          className="absolute w-[100%] h-[100%] object-contain opacity-5 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
         />
         
         {/* Arabic Pattern Overlay */}
