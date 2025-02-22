@@ -1,12 +1,12 @@
 
 import { useState } from 'react';
-import { MessageCircle, Globe } from 'lucide-react';
+import { MessageCircle, Globe, ImageIcon } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 
 interface QuizCardProps {
   title: string;
   description: string;
-  icon: React.ElementType | string;  // Allow both component and string (for image URLs)
+  icon: React.ElementType | string;
   whatsappLink: string;
   webLink: string;
   gradient: string;
@@ -23,6 +23,30 @@ export function QuizCard({
   backgroundImage
 }: QuizCardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
+  const [imgError, setImgError] = useState(false);
+
+  const renderIcon = () => {
+    if (!Icon) {
+      return <ImageIcon className="w-12 h-12 text-white" />;
+    }
+
+    if (typeof Icon === 'string') {
+      return (
+        <img 
+          src={Icon} 
+          alt="" 
+          className="w-12 h-12 object-contain"
+          onError={() => setImgError(true)}
+        />
+      );
+    }
+
+    try {
+      return <Icon className="w-12 h-12 text-white" />;
+    } catch {
+      return <ImageIcon className="w-12 h-12 text-white" />;
+    }
+  };
 
   return (
     <div
@@ -45,11 +69,7 @@ export function QuizCard({
             <div className="relative z-10">
               <div className={`w-24 h-24 rounded-full bg-gradient-to-r ${gradient} p-0.5 mx-auto`}>
                 <div className="w-full h-full rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center">
-                  {typeof Icon === 'string' ? (
-                    <img src={Icon} alt="" className="w-12 h-12 object-contain" />
-                  ) : (
-                    <Icon className="w-12 h-12 text-white" />
-                  )}
+                  {renderIcon()}
                 </div>
               </div>
             </div>
