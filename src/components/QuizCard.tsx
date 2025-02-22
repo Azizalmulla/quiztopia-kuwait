@@ -34,7 +34,7 @@ export function QuizCard({
       <img 
         src={icon} 
         alt={title}
-        className="w-12 h-12 object-contain"
+        className="w-16 h-16 object-contain rounded-full p-2"
         onError={() => setImgError(true)}
       />
     );
@@ -56,7 +56,7 @@ export function QuizCard({
             }}
           >
             <div className="relative z-10">
-              <div className={`w-24 h-24 rounded-full bg-gradient-to-r ${gradient} p-0.5 mx-auto`}>
+              <div className={`w-24 h-24 rounded-full bg-gradient-to-r ${gradient} p-0.5 mx-auto flex items-center justify-center`}>
                 <div className="w-full h-full rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center">
                   {renderIcon()}
                 </div>
