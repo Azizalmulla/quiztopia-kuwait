@@ -31,7 +31,7 @@ export function QuizCard({
     }
 
     return (
-      <div className={`w-32 h-32 rounded-full border-2 border-white/20 p-4 flex items-center justify-center bg-black/20 backdrop-blur-sm transition-all duration-300 group-hover:border-white/40`}>
+      <div className="w-32 h-32 rounded-full border-2 border-white/20 p-4 flex items-center justify-center bg-black/20 transition-all duration-300 group-hover:border-white/40">
         <img 
           src={icon} 
           alt={title}
@@ -44,15 +44,24 @@ export function QuizCard({
 
   return (
     <div
-      className="card-flip w-full h-[400px] cursor-pointer group perspective"
+      className="w-full h-[400px] cursor-pointer group perspective"
       onClick={() => setIsFlipped(!isFlipped)}
     >
-      <div className={`card-flip-inner ${isFlipped ? 'flipped' : ''} duration-700`}>
-        <div className="card-front">
+      <div 
+        className={`relative w-full h-full transition-transform duration-500 preserve-3d ${
+          isFlipped ? 'rotate-y-180' : ''
+        }`}
+        style={{ transformStyle: 'preserve-3d' }}
+      >
+        {/* Front of card */}
+        <div 
+          className="absolute w-full h-full backface-hidden"
+          style={{ backfaceVisibility: 'hidden' }}
+        >
           <div 
-            className={`glass h-full rounded-2xl p-8 flex flex-col items-center justify-center gap-6 transition-all duration-300 hover:shadow-lg hover:shadow-${gradient} border border-white/5 group-hover:border-white/10 relative overflow-hidden`}
+            className="h-full rounded-2xl p-8 flex flex-col items-center justify-center gap-6 transition-all duration-300 hover:shadow-lg border border-white/5 group-hover:border-white/10 relative overflow-hidden bg-black/40"
             style={{
-              background: backgroundImage,
+              background: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), ${backgroundImage}`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
             }}
@@ -60,13 +69,17 @@ export function QuizCard({
             <div className="relative z-10">
               {renderIcon()}
             </div>
-            <h3 className="relative z-10 text-2xl font-semibold text-white text-center group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-white/70 transition-all duration-300">{title}</h3>
+            <h3 className="relative z-10 text-2xl font-semibold text-white text-center transition-all duration-300">{title}</h3>
             <p className="relative z-10 text-white/70 text-center transition-colors duration-300 group-hover:text-white/90">{description}</p>
           </div>
         </div>
-        
-        <div className="card-back">
-          <div className="glass h-full rounded-2xl p-8 flex flex-col items-center justify-center gap-6 border border-white/5 group-hover:border-white/10">
+
+        {/* Back of card */}
+        <div 
+          className="absolute w-full h-full backface-hidden rotate-y-180"
+          style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
+        >
+          <div className="h-full rounded-2xl p-8 flex flex-col items-center justify-center gap-6 border border-white/5 group-hover:border-white/10 bg-black/40">
             <div className="space-y-6 w-full">
               <div className="flex flex-col items-center gap-4">
                 <QRCodeSVG
