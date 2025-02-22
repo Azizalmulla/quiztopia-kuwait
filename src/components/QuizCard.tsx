@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { MessageCircle, Globe } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 
@@ -23,6 +23,11 @@ export function QuizCard({
   backgroundImage
 }: QuizCardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
+  
+  useEffect(() => {
+    // Debug log to verify the background image path
+    console.log('Background image path:', backgroundImage);
+  }, [backgroundImage]);
 
   return (
     <div
@@ -34,7 +39,7 @@ export function QuizCard({
           <div 
             className={`glass h-full rounded-2xl p-8 flex flex-col items-center justify-center gap-6 transition-all duration-300 hover:shadow-lg hover:shadow-${gradient} border border-white/5 group-hover:border-white/10 relative overflow-hidden`}
             style={{
-              backgroundImage: `url(${backgroundImage})`,
+              backgroundImage: `url("${backgroundImage}")`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
             }}
