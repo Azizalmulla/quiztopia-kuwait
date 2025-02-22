@@ -40,11 +40,11 @@ export default function Game() {
   };
 
   const showOptions = () => {
-    addMessage("نعم     أكيد أبي أشارك", false, undefined, true);
+    addMessage("أكيد أبي أشارك", false, undefined, true);
     setTimeout(() => {
-      addMessage("لا     مرة ثانية إن شاء الله", false, undefined, true);
+      addMessage("مرة ثانية إن شاء الله", false, undefined, true);
       setTimeout(() => {
-        addMessage("end     بدي أرجع من البداية", false, undefined, true);
+        addMessage("بدي أرجع من البداية", false, undefined, true);
         setIsProcessing(false);
       }, 500);
     }, 500);
@@ -55,13 +55,13 @@ export default function Game() {
     
     setIsProcessing(true);
     
-    if (option === 'نعم') {
+    if (option === "أكيد أبي أشارك") {
       setShowPayment(true);
       setIsProcessing(false);
-    } else if (option === 'لا') {
+    } else if (option === "مرة ثانية إن شاء الله") {
       addMessage("شكراً لك! نراك قريباً", false);
       setTimeout(() => navigate('/'), 2000);
-    } else if (option === 'end') {
+    } else if (option === "بدي أرجع من البداية") {
       navigate('/');
     } else {
       const currentQuestion = getCurrentQuestion();
@@ -70,6 +70,7 @@ export default function Game() {
         return;
       }
 
+      // Check if the selected option is correct
       const isCorrect = currentQuestion.options_ar.indexOf(option) === 
         currentQuestion.options_en.indexOf(currentQuestion.correct_answer);
 
@@ -94,14 +95,14 @@ export default function Game() {
           }, 1000);
         } else {
           addMessage(`انتهت المسابقة! حصلت على ${score + 1} من ${quizQuestions[category].length} نقاط`, false);
-          addMessage("إذا حبيت تبدأ من جديد اكتب end", false);
+          addMessage("بدي أرجع من البداية", false, undefined, true);
           setIsProcessing(false);
         }
       } else {
         wrongSound.play().catch(() => {});
         addMessage("للأسف الإجابة خطأ", false);
         addMessage(`انتهت المسابقة! حصلت على ${score} من ${quizQuestions[category].length} نقاط`, false);
-        addMessage("إذا حبيت تبدأ من جديد اضغط على end", false);
+        addMessage("بدي أرجع من البداية", false, undefined, true);
         setIsProcessing(false);
       }
     }
@@ -127,7 +128,6 @@ export default function Game() {
           setTimeout(showOptions, 500);
         }, 500);
       }, 500);
-      return;
     }
   };
 
@@ -192,7 +192,7 @@ export default function Game() {
             type="text"
             value={userInput}
             onChange={(e) => setUserInput(e.target.value)}
-            placeholder="...اكتب رسالتك هنا"
+            placeholder="اكتب رسالتك هنا..."
             className="flex-1 rounded-full px-4 py-2 text-right bg-white border-0 focus:ring-0 focus:outline-none text-[15px]"
             dir="rtl"
             disabled={isProcessing}
