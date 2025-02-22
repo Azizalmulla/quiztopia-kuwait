@@ -33,10 +33,7 @@ export function ChatMessage({
   const remainingText = textParts.join(' ');
 
   return (
-    <div 
-      className={`flex mb-2 ${isUser ? 'justify-end' : 'justify-start'}`}
-      dir={isUser ? 'rtl' : 'ltr'}
-    >
+    <div className={`flex mb-2 ${isUser ? 'justify-end' : 'justify-start'}`}>
       <motion.div 
         initial={{ opacity: 0, x: isUser ? 20 : -20 }}
         animate={{ opacity: 1, x: 0 }}
@@ -58,17 +55,17 @@ export function ChatMessage({
             />
           </div>
         )}
-        <div className={`flex items-center justify-between gap-3 ${isUser ? 'flex-row-reverse' : 'flex-row'}`}>
+        <div className="flex items-center justify-between gap-3">
           {isOption && (
             <span className="text-[#00A884] font-medium min-w-[24px]">
               {label}
             </span>
           )}
-          <span className={`text-[15px] leading-5 text-[#111B21] flex-1 ${isUser ? 'text-right' : 'text-left'}`}>
+          <span className={`text-[15px] leading-5 text-[#111B21] flex-1 ${isUser ? 'text-right' : 'text-left'}`} dir={isUser ? 'rtl' : 'ltr'}>
             {isOption ? remainingText : text}
           </span>
         </div>
-        <div className={`flex ${isUser ? 'justify-start' : 'justify-end'} mt-1`}>
+        <div className="flex justify-end mt-1">
           <span className="text-[10px] text-[#8696a0]">
             {format(timestamp, 'hh:mm a')}
           </span>
