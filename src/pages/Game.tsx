@@ -8,12 +8,13 @@ import { CheckCircle2, Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { quizQuestions } from '@/data/quizQuestions';
+import { toast } from "sonner";
 
 export default function Game() {
   const { category = 'general' } = useParams();
   const navigate = useNavigate();
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const [messages, setMessages] = useState<Array<{text: string; isUser: boolean; timestamp: Date}>>([]);
+  const [messages, setMessages] = useState<Array<{text: string; isUser: boolean; timestamp: Date; image?: string}>>([]);
   const [userInput, setUserInput] = useState('');
   const [showPayment, setShowPayment] = useState(false);
   const [language, setLanguage] = useState<'en' | 'ar' | null>(null);
@@ -21,7 +22,6 @@ export default function Game() {
   const [isTimerActive, setIsTimerActive] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
 
-  // Sound effects
   const messageSound = new Audio('/message.mp3');
   const timerSound = new Audio('/timer.mp3');
   const correctSound = new Audio('/correct.mp3');
@@ -31,8 +31,8 @@ export default function Game() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const addMessage = (text: string, isUser: boolean) => {
-    setMessages(prev => [...prev, { text, isUser, timestamp: new Date() }]);
+  const addMessage = (text: string, isUser: boolean, image?: string) => {
+    setMessages(prev => [...prev, { text, isUser, timestamp: new Date(), image }]);
     if (!isUser) {
       messageSound.play().catch(() => {});
     }
@@ -58,7 +58,10 @@ export default function Game() {
     const questionText = language === 'ar' ? currentQuestion.question_ar : currentQuestion.question_en;
     const options = language === 'ar' ? currentQuestion.options_ar : currentQuestion.options_en;
     
-    addMessage(questionText, false);
+    // Add the question with its image
+    addMessage(questionText, false, currentQuestion.image_url);
+
+    // Add options after a short delay
     options.forEach((option, index) => {
       setTimeout(() => {
         addMessage(`${index + 1}. ${option}`, false);
@@ -77,12 +80,23 @@ export default function Game() {
       correctSound.play().catch(() => {});
       const correctMsg = language === 'ar' ? "ممتاز! إجابة صحيحة! 🎉" : "Excellent! Correct answer! 🎉";
       addMessage(correctMsg, false);
-      setCurrentQuestionIndex(prev => prev + 1);
-      setIsTimerActive(false);
-      setTimeout(() => {
-        setIsTimerActive(true);
-        askQuestion();
-      }, 1000);
+      
+      if (currentQuestionIndex < quizQuestions[category].length - 1) {
+        setCurrentQuestionIndex(prev => prev + 1);
+        setIsTimerActive(false);
+        setTimeout(() => {
+          setIsTimerActive(true);
+          askQuestion();
+        }, 1000);
+      } else {
+        // Quiz completed
+        const completionMsg = language === 'ar' 
+          ? "مبروك! خلصت المسابقة! 🎊" 
+          : "Congratulations! You've completed the quiz! 🎊";
+        addMessage(completionMsg, false);
+        setIsTimerActive(false);
+        setTimeout(() => navigate('/'), 3000);
+      }
     } else {
       wrongSound.play().catch(() => {});
       const wrongMsg = language === 'ar' 
@@ -98,32 +112,26 @@ export default function Game() {
     if (!userInput.trim()) return;
 
     addMessage(userInput, true);
-    processUserInput(userInput);
-    setUserInput('');
-  };
-
-  const processUserInput = (input: string) => {
-    const lowerInput = input.toLowerCase();
     
     if (!language) {
-      if (lowerInput.includes('english') || lowerInput.includes('en')) {
+      if (userInput.toLowerCase().includes('english') || userInput.toLowerCase().includes('en')) {
         handleLanguageSelect('en');
-      } else if (lowerInput.includes('arabic') || lowerInput.includes('ar') || lowerInput.includes('عربي')) {
+      } else if (userInput.toLowerCase().includes('arabic') || userInput.toLowerCase().includes('ar') || userInput.includes('عربي')) {
         handleLanguageSelect('ar');
-      } else {
-        addMessage("Please select English or Arabic / الرجاء اختيار اللغة الإنجليزية أو العربية", false);
       }
-      return;
-    }
-
-    if (!gameStarted) {
-      if (lowerInput.includes('yes') || lowerInput.includes('نعم')) {
+    } else if (!gameStarted) {
+      if (userInput.toLowerCase().includes('yes') || userInput.toLowerCase().includes('نعم')) {
         setShowPayment(true);
-      } else if (lowerInput.includes('no') || lowerInput.includes('لا')) {
-        addMessage(language === 'ar' ? "شكراً لك! نراك قريباً" : "Thank you! See you soon!", false);
+      } else if (userInput.toLowerCase().includes('no') || userInput.toLowerCase().includes('لا')) {
+        const goodbyeMsg = language === 'ar' ? "شكراً لك! نراك قريباً" : "Thank you! See you soon!";
+        addMessage(goodbyeMsg, false);
         setTimeout(() => navigate('/'), 2000);
       }
+    } else {
+      handleAnswer(userInput);
     }
+    
+    setUserInput('');
   };
 
   const handlePaymentSuccess = () => {
@@ -134,34 +142,26 @@ export default function Game() {
       ? "ممتاز! لنبدأ المسابقة. لديك 15 ثانية للإجابة على كل سؤال." 
       : "Great! Let's start the quiz. You have 15 seconds to answer each question.";
     addMessage(startMsg, false);
-    // Start first question
     setTimeout(() => {
-      const question = language === 'ar' 
-        ? "السؤال الأول: ما هو..." 
-        : "First question: What is...";
-      addMessage(question, false);
+      askQuestion();
     }, 1000);
   };
 
   const handlePaymentCancel = () => {
     setShowPayment(false);
-    addMessage(
-      language === 'ar' 
-        ? "تم إلغاء الدفع. هل تريد المحاولة مرة أخرى؟" 
-        : "Payment cancelled. Would you like to try again?",
-      false
-    );
+    const cancelMsg = language === 'ar' 
+      ? "تم إلغاء الدفع. هل تريد المحاولة مرة أخرى؟" 
+      : "Payment cancelled. Would you like to try again?";
+    addMessage(cancelMsg, false);
   };
 
   const handleTimeUp = () => {
     timerSound.play().catch(() => {});
     setIsTimerActive(false);
-    addMessage(
-      language === 'ar' 
-        ? "خلص الوقت! انتهت المسابقة. نشوفك مرة ثانية!" 
-        : "Time's up! The quiz is over. See you next time!",
-      false
-    );
+    const timeUpMsg = language === 'ar' 
+      ? "خلص الوقت! انتهت المسابقة. نشوفك مرة ثانية!" 
+      : "Time's up! The quiz is over. See you next time!";
+    addMessage(timeUpMsg, false);
     setTimeout(() => navigate('/'), 3000);
   };
 
@@ -205,6 +205,7 @@ export default function Game() {
             text={message.text}
             isUser={message.isUser}
             timestamp={message.timestamp}
+            image={message.image}
           />
         ))}
         <div ref={messagesEndRef} />
