@@ -7,6 +7,16 @@ import { Button } from "@/components/ui/button";
 const Index = () => {
   const navigate = useNavigate();
 
+  // Array of random Arabic questions
+  const arabicQuestions = [
+    "كم عدد كواكب المجموعة الشمسية؟",
+    "ما هي عاصمة الكويت؟",
+    "متى تأسست دولة الكويت؟",
+    "من هو مؤسس دولة الكويت؟",
+    "ما هو أكبر مسجد في الكويت؟",
+    "كم برجاً في أبراج الكويت؟"
+  ];
+
   const handlePlayClick = () => {
     console.log("Navigate to dashboard");
     navigate('/dashboard');
@@ -87,12 +97,28 @@ const Index = () => {
           </Button>
         </div>
 
-        {/* Right Section - Enhanced Brain Icon */}
+        {/* Right Section - Enhanced Brain Icon with Floating Questions */}
         <div className="lg:w-1/2 flex justify-center lg:justify-end">
           <div className="relative w-48 h-48 md:w-64 md:h-64 flex items-center justify-center">
             {/* Glowing background effect */}
             <div className="absolute inset-0 bg-gradient-to-r from-teal-500/20 to-emerald-500/20 rounded-full blur-3xl animate-pulse" />
             <div className="absolute inset-0 bg-gradient-to-r from-teal-500/10 to-emerald-500/10 rounded-full blur-2xl animate-float" />
+            
+            {/* Floating Questions */}
+            {arabicQuestions.map((question, index) => (
+              <div
+                key={index}
+                className="absolute text-teal-300/40 text-sm font-arabic whitespace-nowrap"
+                style={{
+                  transform: `rotate(${(360 / arabicQuestions.length) * index}deg) translateX(${120 + (index % 2) * 30}px)`,
+                  animation: `float ${3 + index % 2}s infinite ease-in-out ${index * 0.5}s`,
+                }}
+              >
+                {question}
+              </div>
+            ))}
+
+            {/* Brain Icon */}
             <Brain className="w-full h-full text-teal-300/80 animate-float drop-shadow-[0_0_15px_rgba(20,184,166,0.3)]" />
           </div>
         </div>
