@@ -32,17 +32,36 @@ export function ChatMessage({
   const [label, ...textParts] = text.split(' ');
   const remainingText = textParts.join(' ');
 
+  if (isOption) {
+    return (
+      <div className="flex mb-2 justify-start">
+        <motion.div 
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.3 }}
+          onClick={handleClick}
+          className="flex items-center justify-between w-full max-w-[80%] px-4 py-3 bg-white rounded-xl cursor-pointer hover:bg-gray-50 active:bg-gray-100 transition-colors"
+        >
+          <span className="text-[#111B21] text-[15px] leading-5 flex-1 text-right" dir="rtl">
+            {remainingText}
+          </span>
+          <span className="text-[#00A884] font-medium min-w-[24px] ml-3">
+            {label}
+          </span>
+        </motion.div>
+      </div>
+    );
+  }
+
   return (
     <div className={`flex mb-2 ${isUser ? 'justify-end' : 'justify-start'}`}>
       <motion.div 
         initial={{ opacity: 0, x: isUser ? 20 : -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.3 }}
-        onClick={handleClick}
         className={cn(
           "relative max-w-[80%] px-4 py-2 rounded-xl",
           isUser ? "bg-[#e7fedd] rounded-tr-none" : "bg-white rounded-tl-none",
-          isOption && "hover:bg-gray-50 cursor-pointer active:bg-gray-100 transition-colors",
           image && "overflow-hidden"
         )}
       >
@@ -55,14 +74,9 @@ export function ChatMessage({
             />
           </div>
         )}
-        <div className="flex items-center justify-between gap-3">
-          {isOption && (
-            <span className="text-[#00A884] font-medium min-w-[24px]">
-              {label}
-            </span>
-          )}
+        <div className="flex items-center gap-3">
           <span className={`text-[15px] leading-5 text-[#111B21] flex-1 ${isUser ? 'text-right' : 'text-left'}`} dir={isUser ? 'rtl' : 'ltr'}>
-            {isOption ? remainingText : text}
+            {text}
           </span>
         </div>
         <div className="flex justify-end mt-1">
