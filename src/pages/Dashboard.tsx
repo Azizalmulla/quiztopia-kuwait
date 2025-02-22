@@ -2,9 +2,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { quizCategories } from '@/data/quizCategories';
-import DashboardHeader from '@/components/dashboard/DashboardHeader';
-import BackgroundEffects from '@/components/dashboard/BackgroundEffects';
-import ScrollToTopButton from '@/components/dashboard/ScrollToTopButton';
+import { DashboardHeader } from '@/components/dashboard/DashboardHeader';
+import { BackgroundEffects } from '@/components/dashboard/BackgroundEffects';
+import { ScrollToTopButton } from '@/components/dashboard/ScrollToTopButton';
 
 const Dashboard = () => {
   return (
