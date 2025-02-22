@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { KNETPayment } from '@/components/chat/KNETPayment';
@@ -6,11 +6,21 @@ import { ChatContainer } from '@/components/chat/ChatContainer';
 import { ChatInput } from '@/components/chat/ChatInput';
 import { getCurrentQuestion, getLocalizedOptions, getLocalizedMessages } from '@/utils/gameUtils';
 import { Language, ChatMessageType } from '@/types/game';
-import { quizQuestions } from '@/data/quizQuestions';  // Added this import
+import { quizQuestions } from '@/data/quizQuestions';
 
-export default function Game() {
-  const { category = 'general' } = useParams();
+const Game = () => {
+  const { category } = useParams<{ category: string }>();
   const navigate = useNavigate();
+  
+  // Validate category
+  useEffect(() => {
+    if (!category || !quizQuestions[category]) {
+      console.error('Invalid category:', category);
+      navigate('/dashboard');
+      return;
+    }
+  }, [category, navigate]);
+
   const [messages, setMessages] = useState<ChatMessageType[]>([]);
   const [userInput, setUserInput] = useState('');
   const [showPayment, setShowPayment] = useState(false);
@@ -240,4 +250,6 @@ export default function Game() {
       </Dialog>
     </div>
   );
-}
+};
+
+export default Game;

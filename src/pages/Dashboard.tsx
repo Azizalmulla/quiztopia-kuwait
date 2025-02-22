@@ -1,67 +1,57 @@
 
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { supabase } from '@/lib/supabase';
-import { QuizCard } from '@/components/QuizCard';
-import { BackgroundEffects } from '@/components/dashboard/BackgroundEffects';
-import { DashboardHeader } from '@/components/dashboard/DashboardHeader';
-import { ScrollToTopButton } from '@/components/dashboard/ScrollToTopButton';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { quizCategories } from '@/data/quizCategories';
+import DashboardHeader from '@/components/dashboard/DashboardHeader';
+import BackgroundEffects from '@/components/dashboard/BackgroundEffects';
+import ScrollToTopButton from '@/components/dashboard/ScrollToTopButton';
 
 const Dashboard = () => {
-  const navigate = useNavigate();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  useEffect(() => {
-    const checkAuth = async () => {
-      const { data: { user }, error } = await supabase.auth.getUser();
-      if (error || !user) {
-        navigate('/game');
-      } else {
-        setIsAuthenticated(true);
-      }
-    };
-
-    checkAuth();
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === 'SIGNED_OUT' || !session) {
-        navigate('/game');
-      }
-    });
-
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, [navigate]);
-
-  if (!isAuthenticated) {
-    return null;
-  }
-
   return (
-    <div className="h-screen w-full bg-gradient-to-b from-zinc-900 to-black overflow-y-auto">
+    <div className="min-h-screen bg-[#0A0A0A] text-white relative overflow-x-hidden">
       <BackgroundEffects />
+      <DashboardHeader />
 
-      {/* Content Container */}
-      <div className="relative w-full">
-        <DashboardHeader />
+      {/* Categories Grid */}
+      <div className="container mx-auto px-4 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {quizCategories.map((category, index) => (
+            <Link
+              key={index}
+              to={category.webLink}
+              className="group relative overflow-hidden rounded-2xl transition-transform duration-300 hover:-translate-y-2"
+              style={{
+                background: category.backgroundImage,
+              }}
+            >
+              <div className="p-6 flex flex-col h-full min-h-[280px]">
+                {/* Icon and Title */}
+                <div className="flex items-center gap-4 mb-4">
+                  <img
+                    src={category.icon}
+                    alt={category.title}
+                    className="w-12 h-12 object-contain"
+                  />
+                  <h3 className="text-xl font-bold">{category.title}</h3>
+                </div>
 
-        {/* Main Content */}
-        <div className="container mx-auto px-4 pb-20">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-[1600px] mx-auto">
-            {quizCategories.map((category) => (
-              <div
-                key={category.title}
-                className="animate-fade-in transform hover:scale-105 transition-transform duration-200"
-              >
-                <QuizCard {...category} />
+                {/* Description */}
+                <p className="text-gray-300 flex-grow">
+                  {category.description}
+                </p>
+
+                {/* Play Button */}
+                <div className="mt-6">
+                  <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r ${category.gradient} text-white font-medium transition-all duration-300 group-hover:shadow-lg group-hover:shadow-teal-500/20`}>
+                    ابدأ اللعب
+                  </div>
+                </div>
               </div>
-            ))}
-          </div>
+            </Link>
+          ))}
         </div>
       </div>
-
+      
       <ScrollToTopButton />
     </div>
   );
