@@ -2,9 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ChatMessage } from '@/components/chat/ChatMessage';
-import { QuizTimer } from '@/components/chat/QuizTimer';
 import { KNETPayment } from '@/components/chat/KNETPayment';
-import { Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { quizQuestions } from '@/data/quizQuestions';
@@ -14,14 +12,12 @@ export default function Game() {
   const navigate = useNavigate();
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [messages, setMessages] = useState<Array<{text: string; isUser: boolean; timestamp: Date; image?: string}>>([]);
-  const [userInput, setUserInput] = useState('');
   const [showPayment, setShowPayment] = useState(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [isTimerActive, setIsTimerActive] = useState(false);
   const [score, setScore] = useState(0);
+  const [showOptions, setShowOptions] = useState<boolean>(false);
 
   const messageSound = new Audio('/message.mp3');
-  const timerSound = new Audio('/timer.mp3');
   const correctSound = new Audio('/correct.mp3');
   const wrongSound = new Audio('/wrong.mp3');
 
@@ -60,10 +56,12 @@ export default function Game() {
     // Add the "end" option
     setTimeout(() => {
       addMessage("end     بدي أرجع من البداية", false);
+      setShowOptions(true); // Show option buttons after all messages are displayed
     }, currentQuestion.options_ar.length * 500);
   };
 
   const handleAnswer = (answer: string) => {
+    setShowOptions(false); // Hide options while processing answer
     const currentQuestion = getCurrentQuestion();
     if (!currentQuestion) return;
     
@@ -71,6 +69,8 @@ export default function Game() {
       navigate('/');
       return;
     }
+
+    addMessage(answer, true);
 
     const answerIndex = arabicLetters.indexOf(answer);
     const isCorrect = currentQuestion.options_ar[answerIndex] === currentQuestion.options_ar[
@@ -84,48 +84,34 @@ export default function Game() {
       
       if (currentQuestionIndex < quizQuestions[category].length - 1) {
         setCurrentQuestionIndex(prev => prev + 1);
-        setIsTimerActive(false);
         setTimeout(() => {
-          setIsTimerActive(true);
           askQuestion();
         }, 1000);
       } else {
-        setIsTimerActive(false);
         addMessage(`انتهت المسابقة! حصلت على ${score + 1} من ${quizQuestions[category].length} نقاط`, false);
-        addMessage("إذا حبيت تبدأ من جديد 'end' تقدر تكتب", false);
+        addMessage("إذا حبيت تبدأ من جديد اضغط على زر الرجوع", false);
       }
     } else {
       wrongSound.play().catch(() => {});
       addMessage("للأسف الإجابة خطأ. خليج المكسيك هو أكبر خليج في العالم بمساحة تقدر بحوالي 1.6 مليون كيلومتر مربع", false);
       addMessage(`انتهت المسابقة! حصلت على ${score} من ${quizQuestions[category].length} نقاط`, false);
-      addMessage("إذا حبيت تبدأ من جديد 'end' تقدر تكتب", false);
-      setIsTimerActive(false);
+      addMessage("إذا حبيت تبدأ من جديد اضغط على زر الرجوع", false);
     }
   };
 
-  const handleUserInput = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!userInput.trim()) return;
-
-    addMessage(userInput, true);
-    
-    if (!showPayment) {
-      if (userInput === 'نعم' || userInput.toLowerCase() === 'yes') {
-        setShowPayment(true);
-      } else if (userInput === 'لا' || userInput.toLowerCase() === 'no') {
-        addMessage("شكراً لك! نراك قريباً", false);
-        setTimeout(() => navigate('/'), 2000);
-      }
+  const handleInitialChoice = (choice: 'yes' | 'no') => {
+    if (choice === 'yes') {
+      addMessage('نعم', true);
+      setShowPayment(true);
     } else {
-      handleAnswer(userInput);
+      addMessage('لا', true);
+      addMessage("شكراً لك! نراك قريباً", false);
+      setTimeout(() => navigate('/'), 2000);
     }
-    
-    setUserInput('');
   };
 
   const handlePaymentSuccess = () => {
     setShowPayment(false);
-    setIsTimerActive(true);
     addMessage("!تم تأكيد الدفع! يلا نبدأ بالمسابقة", false);
     setTimeout(() => {
       askQuestion();
@@ -135,21 +121,18 @@ export default function Game() {
   const handlePaymentCancel = () => {
     setShowPayment(false);
     addMessage("تم إلغاء الدفع. هل تريد المحاولة مرة أخرى؟", false);
-  };
-
-  const handleTimeUp = () => {
-    timerSound.play().catch(() => {});
-    setIsTimerActive(false);
-    addMessage("!خلص الوقت! انتهت المسابقة", false);
-    addMessage(`حصلت على ${score} من ${quizQuestions[category].length} نقاط`, false);
-    addMessage("إذا حبيت تبدأ من جديد 'end' تقدر تكتب", false);
+    setShowOptions(true);
   };
 
   useEffect(() => {
-    addMessage("السلام عليكم! حياك الله في مسابقة الكويت للمعلومات العامة ⭐", false);
-    addMessage("نعم     أكيد أبي أشارك", false);
-    addMessage("لا     مرة ثانية إن شاء الله", false);
-    addMessage("end     بدي أرجع من البداية", false);
+    // Initial messages
+    setTimeout(() => {
+      addMessage("السلام عليكم! حياك الله في مسابقة الكويت للمعلومات العامة ⭐", false);
+      setTimeout(() => {
+        addMessage("هل تريد المشاركة في المسابقة؟", false);
+        setShowOptions(true);
+      }, 500);
+    }, 500);
   }, []);
 
   useEffect(() => {
@@ -164,7 +147,7 @@ export default function Game() {
           <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden">
             <img src="/quiz-bot-avatar.png" alt="Bot" className="w-full h-full object-cover" />
           </div>
-          <div className="mr-3 text-right"> {/* Changed ml-3 to mr-3 for RTL */}
+          <div className="mr-3 text-right">
             <h1 className="font-semibold">مسابقة الكويت</h1>
             <p className="text-sm opacity-75">Kuwait Quiz</p>
           </div>
@@ -172,7 +155,7 @@ export default function Game() {
       </div>
 
       {/* Chat messages */}
-      <div className="flex-1 overflow-y-auto p-4" dir="rtl"> {/* Added dir="rtl" */}
+      <div className="flex-1 overflow-y-auto p-4" dir="rtl">
         {messages.map((message, index) => (
           <ChatMessage
             key={index}
@@ -185,36 +168,44 @@ export default function Game() {
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Timer */}
-      {isTimerActive && (
-        <div className="fixed top-20 left-4"> {/* Changed right-4 to left-4 for RTL */}
-          <QuizTimer
-            duration={15}
-            onTimeUp={handleTimeUp}
-            isActive={isTimerActive}
-          />
+      {/* Options Buttons */}
+      {showOptions && (
+        <div className="bg-[#F0F0F0] p-4 sticky bottom-0 z-10" dir="rtl">
+          <div className="flex flex-col gap-2">
+            {!showPayment && currentQuestionIndex === 0 && (
+              <>
+                <Button 
+                  onClick={() => handleInitialChoice('yes')}
+                  className="w-full bg-[#075E54] hover:bg-[#054C44] text-right justify-start"
+                >
+                  نعم     أكيد أبي أشارك
+                </Button>
+                <Button 
+                  onClick={() => handleInitialChoice('no')}
+                  className="w-full bg-[#075E54] hover:bg-[#054C44] text-right justify-start"
+                >
+                  لا     مرة ثانية إن شاء الله
+                </Button>
+              </>
+            )}
+            {currentQuestionIndex > 0 && getCurrentQuestion()?.options_ar.map((option, index) => (
+              <Button
+                key={index}
+                onClick={() => handleAnswer(arabicLetters[index])}
+                className="w-full bg-[#075E54] hover:bg-[#054C44] text-right justify-start"
+              >
+                {`${arabicLetters[index]}     ${option}`}
+              </Button>
+            ))}
+            <Button
+              onClick={() => handleAnswer('end')}
+              className="w-full bg-[#075E54] hover:bg-[#054C44] text-right justify-start"
+            >
+              end     بدي أرجع من البداية
+            </Button>
+          </div>
         </div>
       )}
-
-      {/* Input area */}
-      <form onSubmit={handleUserInput} className="bg-[#F0F0F0] p-4 sticky bottom-0 z-10">
-        <div className="flex items-center gap-2">
-          <Button 
-            type="submit"
-            className="bg-[#075E54] hover:bg-[#054C44] rounded-full w-12 h-12 flex items-center justify-center"
-          >
-            <Send className="w-5 h-5" />
-          </Button>
-          <input
-            type="text"
-            value={userInput}
-            onChange={(e) => setUserInput(e.target.value)}
-            className="flex-1 rounded-full px-6 py-3 focus:outline-none focus:ring-2 focus:ring-[#075E54] bg-white text-right"
-            placeholder="...اكتب رسالتك هنا"
-            dir="rtl"
-          />
-        </div>
-      </form>
 
       {/* Payment Dialog */}
       <Dialog open={showPayment} onOpenChange={setShowPayment}>
