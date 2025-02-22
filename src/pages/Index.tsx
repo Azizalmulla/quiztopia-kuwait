@@ -99,7 +99,7 @@ const Index = () => {
 
         {/* Right Section - Brain Icon with Connected Questions */}
         <div className="lg:w-1/2 flex justify-center lg:justify-end">
-          <div className="relative w-64 h-64 md:w-[600px] md:h-[600px] flex items-center justify-center">
+          <div className="relative w-64 h-64 md:w-[500px] md:h-[500px] flex items-center justify-center">
             {/* Glowing background effect */}
             <div className="absolute inset-0 bg-gradient-to-r from-teal-500/20 to-emerald-500/20 rounded-full blur-3xl animate-pulse" />
             <div className="absolute inset-0 bg-gradient-to-r from-teal-500/10 to-emerald-500/10 rounded-full blur-2xl animate-float" />
@@ -112,7 +112,7 @@ const Index = () => {
             {/* Connected Questions with Lines */}
             {arabicQuestions.map((question, index) => {
               const angle = (360 / arabicQuestions.length) * index;
-              const radius = 240; // Increased radius for more space
+              const radius = 160; // Reduced radius for shorter lines
               const x = Math.cos((angle * Math.PI) / 180) * radius;
               const y = Math.sin((angle * Math.PI) / 180) * radius;
               
