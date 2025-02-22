@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ChatMessage } from '@/components/chat/ChatMessage';
@@ -50,36 +49,18 @@ export default function Game() {
     }, 500);
   };
 
-  const handleUserInput = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleOptionClick = (option: string) => {
     if (isProcessing) return;
-
-    const input = userInput.trim();
-    if (!input) return;
-
-    setUserInput('');
-    addMessage(input, true);
+    
     setIsProcessing(true);
-
-    if (!hasGreeted) {
-      setHasGreeted(true);
-      setTimeout(() => {
-        addMessage("السلام عليكم! حياك الله في مسابقة الكويت للمعلومات العامة ⭐", false);
-        setTimeout(() => {
-          addMessage("هل تريد المشاركة في المسابقة؟", false);
-          setTimeout(showOptions, 500);
-        }, 500);
-      }, 500);
-      return;
-    }
-
-    if (input.toLowerCase() === 'نعم' || input.toLowerCase() === 'yes') {
+    
+    if (option === 'نعم') {
       setShowPayment(true);
       setIsProcessing(false);
-    } else if (input.toLowerCase() === 'لا' || input.toLowerCase() === 'no') {
+    } else if (option === 'لا') {
       addMessage("شكراً لك! نراك قريباً", false);
       setTimeout(() => navigate('/'), 2000);
-    } else if (input.toLowerCase() === 'end') {
+    } else if (option === 'end') {
       navigate('/');
     } else {
       const currentQuestion = getCurrentQuestion();
@@ -88,7 +69,7 @@ export default function Game() {
         return;
       }
 
-      const isCorrect = currentQuestion.options_ar.indexOf(input) === 
+      const isCorrect = currentQuestion.options_ar.indexOf(option) === 
         currentQuestion.options_en.indexOf(currentQuestion.correct_answer);
 
       if (isCorrect) {
@@ -122,6 +103,30 @@ export default function Game() {
         addMessage("إذا حبيت تبدأ من جديد اكتب end", false);
         setIsProcessing(false);
       }
+    }
+  };
+
+  const handleUserInput = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (isProcessing) return;
+
+    const input = userInput.trim();
+    if (!input) return;
+
+    setUserInput('');
+    addMessage(input, true);
+    setIsProcessing(true);
+
+    if (!hasGreeted) {
+      setHasGreeted(true);
+      setTimeout(() => {
+        addMessage("السلام عليكم! حياك الله في مسابقة الكويت للمعلومات العامة ⭐", false);
+        setTimeout(() => {
+          addMessage("هل تريد المشاركة في المسابقة؟", false);
+          setTimeout(showOptions, 500);
+        }, 500);
+      }, 500);
+      return;
     }
   };
 
@@ -168,6 +173,7 @@ export default function Game() {
             timestamp={message.timestamp}
             image={message.image}
             isOption={message.isOption}
+            onOptionClick={message.isOption ? handleOptionClick : undefined}
           />
         ))}
         <div ref={messagesEndRef} />

@@ -9,12 +9,27 @@ interface ChatMessageProps {
   image?: string;
   showImage?: boolean;
   isOption?: boolean;
+  onOptionClick?: (text: string) => void;
 }
 
-export function ChatMessage({ text, isUser, timestamp, image, showImage = true, isOption = false }: ChatMessageProps) {
+export function ChatMessage({ 
+  text, 
+  isUser, 
+  timestamp, 
+  image, 
+  showImage = true, 
+  isOption = false,
+  onOptionClick 
+}: ChatMessageProps) {
   const words = text.split('     ');
   const [keyword, ...rest] = words;
   const remainingText = rest.join('     ');
+
+  const handleClick = () => {
+    if (isOption && onOptionClick) {
+      onOptionClick(keyword);
+    }
+  };
 
   return (
     <div 
@@ -24,9 +39,12 @@ export function ChatMessage({ text, isUser, timestamp, image, showImage = true, 
         className={`relative max-w-[85%] px-4 py-2 rounded-2xl
           ${isUser 
             ? 'bg-[#e7fedd]' 
-            : isOption ? 'bg-white' : 'bg-white'
+            : isOption 
+              ? 'bg-white hover:bg-gray-50 cursor-pointer transition-colors' 
+              : 'bg-white'
           }
         `}
+        onClick={handleClick}
       >
         {showImage && image && (
           <div className="mb-2 -mx-4 -mt-2">
