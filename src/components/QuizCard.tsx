@@ -6,7 +6,7 @@ import { QRCodeSVG } from 'qrcode.react';
 interface QuizCardProps {
   title: string;
   description: string;
-  icon: LucideIcon | string;  // Allow both Lucide icons and image URLs
+  icon: LucideIcon;  // Only allow LucideIcon for now
   whatsappLink: string;
   webLink: string;
   gradient: string;
@@ -23,10 +23,6 @@ export function QuizCard({
   backgroundImage
 }: QuizCardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
-  
-  useEffect(() => {
-    console.log('Background image path:', backgroundImage);
-  }, [backgroundImage]);
 
   return (
     <div
@@ -49,11 +45,7 @@ export function QuizCard({
             <div className="relative z-10">
               <div className={`w-24 h-24 rounded-full bg-gradient-to-r ${gradient} p-0.5 mx-auto`}>
                 <div className="w-full h-full rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center">
-                  {typeof Icon === 'string' ? (
-                    <img src={Icon} alt="" className="w-12 h-12 object-contain" />
-                  ) : (
-                    <Icon className="w-12 h-12 text-white" />
-                  )}
+                  <Icon className="w-12 h-12 text-white" />
                 </div>
               </div>
             </div>
