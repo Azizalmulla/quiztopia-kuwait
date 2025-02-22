@@ -58,7 +58,7 @@ const Index = () => {
           <div className="flex flex-col sm:flex-row items-center gap-4 mt-8">
             {/* Primary CTA */}
             <button
-              onClick={() => navigate('/')} // Updated to keep users on home page where cards are shown
+              onClick={() => navigate('/dashboard')} // Updated to navigate to the dashboard
               className="group relative flex items-center gap-3 px-10 py-4 
                 bg-gradient-to-r from-teal-600 to-emerald-600
                 text-white text-xl font-bold
