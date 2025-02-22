@@ -11,7 +11,7 @@ export const quizCategories = [
     whatsappLink: "https://wa.me/your-bot?text=start_islamic_quiz",
     webLink: "/quiz/islamic",
     gradient: "from-emerald-600 to-teal-500",
-    backgroundImage: "https://images.unsplash.com/photo-1466442929976-97f336a657be?auto=format&fit=crop&w=800&q=80"
+    backgroundImage: "/lovable-uploads/18ec46b9-4e58-4420-a305-5878ef0a128a.png"
   },
   {
     title: "معلومات عامة - General Knowledge",
