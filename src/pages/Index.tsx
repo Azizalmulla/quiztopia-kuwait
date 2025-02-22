@@ -8,8 +8,8 @@ const Index = () => {
   const navigate = useNavigate();
 
   const handlePlayClick = () => {
-    console.log("Navigate to dashboard");
-    navigate('/dashboard');
+    console.log("Navigate to quiz/general");
+    navigate('/quiz/general');
   };
 
   return (
