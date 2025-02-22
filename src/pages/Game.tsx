@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
@@ -7,6 +6,7 @@ import { ChatContainer } from '@/components/chat/ChatContainer';
 import { ChatInput } from '@/components/chat/ChatInput';
 import { getCurrentQuestion, getLocalizedOptions, getLocalizedMessages } from '@/utils/gameUtils';
 import { Language, ChatMessageType } from '@/types/game';
+import { quizQuestions } from '@/data/quizQuestions';  // Added this import
 
 export default function Game() {
   const { category = 'general' } = useParams();
