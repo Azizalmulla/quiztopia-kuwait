@@ -44,20 +44,12 @@ export function QuizCard({
 
   return (
     <div
-      className="w-full h-[400px] cursor-pointer group perspective"
+      className="card-flip w-full h-[400px] cursor-pointer group"
       onClick={() => setIsFlipped(!isFlipped)}
     >
-      <div 
-        className={`relative w-full h-full transition-transform duration-500 preserve-3d ${
-          isFlipped ? 'rotate-y-180' : ''
-        }`}
-        style={{ transformStyle: 'preserve-3d' }}
-      >
+      <div className={`card-flip-inner ${isFlipped ? 'flipped' : ''}`}>
         {/* Front of card */}
-        <div 
-          className="absolute w-full h-full backface-hidden"
-          style={{ backfaceVisibility: 'hidden' }}
-        >
+        <div className="card-front">
           <div 
             className="h-full rounded-2xl p-8 flex flex-col items-center justify-center gap-6 transition-all duration-300 hover:shadow-lg border border-white/5 group-hover:border-white/10 relative overflow-hidden bg-black/40"
             style={{
@@ -75,10 +67,7 @@ export function QuizCard({
         </div>
 
         {/* Back of card */}
-        <div 
-          className="absolute w-full h-full backface-hidden rotate-y-180"
-          style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
-        >
+        <div className="card-back">
           <div className="h-full rounded-2xl p-8 flex flex-col items-center justify-center gap-6 border border-white/5 group-hover:border-white/10 bg-black/40">
             <div className="space-y-6 w-full">
               <div className="flex flex-col items-center gap-4">
