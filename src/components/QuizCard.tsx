@@ -65,7 +65,7 @@ export function QuizCard({
                 </div>
               </div>
             </div>
-            <h3 className="relative z-10 text-2xl font-semibold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-white/70 transition-all duration-300">{title}</h3>
+            <h3 className="relative z-10 text-2xl font-semibold text-white text-center group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-white/70 transition-all duration-300">{title}</h3>
             <p className="relative z-10 text-white/70 text-center transition-colors duration-300 group-hover:text-white/90">{description}</p>
           </div>
         </div>
