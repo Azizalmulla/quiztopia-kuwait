@@ -116,6 +116,10 @@ const Index = () => {
               const x = Math.cos((angle * Math.PI) / 180) * radius;
               const y = Math.sin((angle * Math.PI) / 180) * radius;
               
+              // Calculate position adjustment for text alignment
+              const isLeft = angle > 90 && angle < 270;
+              const textAdjustX = isLeft ? -160 : 0; // Adjust text position for left side
+              
               return (
                 <div key={index} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                   {/* Line */}
@@ -133,10 +137,9 @@ const Index = () => {
                   <div
                     className="absolute whitespace-nowrap text-sm text-teal-300/70"
                     style={{
-                      transform: `translate(${x}px, ${y}px) ${angle > 90 && angle < 270 ? 'rotate(180deg)' : ''}`,
-                      textAlign: angle > 90 && angle < 270 ? 'right' : 'left',
-                      width: 'max-content',
-                      maxWidth: '160px',
+                      transform: `translate(${x + textAdjustX}px, ${y}px)`,
+                      textAlign: isLeft ? 'right' : 'left',
+                      width: '160px',
                       padding: '8px 12px',
                       background: 'rgba(0, 0, 0, 0.5)',
                       borderRadius: '8px',
