@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ChatMessage } from '@/components/chat/ChatMessage';
@@ -100,7 +101,7 @@ export default function Game() {
         wrongSound.play().catch(() => {});
         addMessage("للأسف الإجابة خطأ", false);
         addMessage(`انتهت المسابقة! حصلت على ${score} من ${quizQuestions[category].length} نقاط`, false);
-        addMessage("إذا حبيت تبدأ من جديد اكتب end", false);
+        addMessage("إذا حبيت تبدأ من جديد اضغط على end", false);
         setIsProcessing(false);
       }
     }
@@ -163,7 +164,6 @@ export default function Game() {
 
   return (
     <div className="flex flex-col h-screen bg-[#EFE7DE]">
-      {/* Chat messages */}
       <div className="flex-1 overflow-y-auto px-3 py-2" dir="rtl">
         {messages.map((message, index) => (
           <ChatMessage
@@ -179,12 +179,12 @@ export default function Game() {
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Message Input */}
       <form onSubmit={handleUserInput} className="sticky bottom-0 z-10">
         <div className="flex items-center gap-2 p-2 bg-[#F0F2F5]">
           <button 
             type="submit"
             className="p-2 rounded-full bg-[#00A884] hover:bg-[#017561] transition-colors"
+            disabled={isProcessing}
           >
             <Send className="w-6 h-6 text-white" />
           </button>
@@ -200,7 +200,6 @@ export default function Game() {
         </div>
       </form>
 
-      {/* Payment Dialog */}
       <Dialog open={showPayment} onOpenChange={setShowPayment}>
         <DialogContent>
           <KNETPayment
