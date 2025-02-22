@@ -71,7 +71,7 @@ export function QuizCard({
                   onClick={(e) => e.stopPropagation()}
                 >
                   <Globe className="w-5 h-5" />
-                  <span>Play on Web</span>
+                  <span>Demo</span>
                 </a>
               </div>
             </div>
