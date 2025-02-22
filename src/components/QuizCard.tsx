@@ -1,12 +1,12 @@
 
 import { useState, useEffect } from 'react';
-import { MessageCircle, Globe } from 'lucide-react';
+import { MessageCircle, Globe, LucideIcon } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 
 interface QuizCardProps {
   title: string;
   description: string;
-  icon: any;
+  icon: LucideIcon;
   whatsappLink: string;
   webLink: string;
   gradient: string;

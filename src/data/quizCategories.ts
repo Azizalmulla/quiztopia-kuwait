@@ -1,4 +1,5 @@
 
+import type { LucideIcon } from 'lucide-react';
 import { 
   Moon, Brain, Trophy
 } from 'lucide-react';
