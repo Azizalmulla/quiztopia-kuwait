@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Sparkles, Brain, ChevronRight, Rabbit, Cat } from 'lucide-react';
@@ -97,35 +96,67 @@ const Index = () => {
           </Button>
         </div>
 
-        {/* Right Section - Enhanced Brain Icon with Floating Questions */}
+        {/* Right Section - Brain Icon with Connected Questions */}
         <div className="lg:w-1/2 flex justify-center lg:justify-end">
-          <div className="relative w-48 h-48 md:w-64 md:h-64 flex items-center justify-center">
+          <div className="relative w-64 h-64 md:w-[400px] md:h-[400px] flex items-center justify-center">
             {/* Glowing background effect */}
             <div className="absolute inset-0 bg-gradient-to-r from-teal-500/20 to-emerald-500/20 rounded-full blur-3xl animate-pulse" />
             <div className="absolute inset-0 bg-gradient-to-r from-teal-500/10 to-emerald-500/10 rounded-full blur-2xl animate-float" />
             
-            {/* Floating Questions */}
-            {arabicQuestions.map((question, index) => (
-              <div
-                key={index}
-                className="absolute text-teal-300/40 text-sm font-arabic whitespace-nowrap"
-                style={{
-                  transform: `rotate(${(360 / arabicQuestions.length) * index}deg) translateX(${120 + (index % 2) * 30}px)`,
-                  animation: `float ${3 + index % 2}s infinite ease-in-out ${index * 0.5}s`,
-                }}
-              >
-                {question}
-              </div>
-            ))}
-
             {/* Brain Icon */}
-            <Brain className="w-full h-full text-teal-300/80 animate-float drop-shadow-[0_0_15px_rgba(20,184,166,0.3)]" />
+            <div className="relative z-10">
+              <Brain className="w-32 h-32 md:w-40 md:h-40 text-teal-300/80 drop-shadow-[0_0_15px_rgba(20,184,166,0.3)]" />
+            </div>
+
+            {/* Connected Questions with Lines */}
+            {arabicQuestions.map((question, index) => {
+              const angle = (360 / arabicQuestions.length) * index;
+              const radius = 140; // Distance from brain to question
+              const x = Math.cos((angle * Math.PI) / 180) * radius;
+              const y = Math.sin((angle * Math.PI) / 180) * radius;
+              
+              return (
+                <div key={index} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                  {/* Line */}
+                  <div
+                    className="absolute h-px bg-gradient-to-r from-teal-500/50 to-teal-300/10"
+                    style={{
+                      width: `${radius}px`,
+                      transform: `rotate(${angle}deg)`,
+                      transformOrigin: '0 0',
+                      animation: `pulse 3s infinite ${index * 0.5}s`,
+                    }}
+                  />
+                  
+                  {/* Question Text */}
+                  <div
+                    className="absolute whitespace-nowrap text-sm text-teal-300/70 font-arabic"
+                    style={{
+                      transform: `translate(${x}px, ${y}px) ${angle > 90 && angle < 270 ? 'rotate(180deg)' : ''}`,
+                      textAlign: angle > 90 && angle < 270 ? 'right' : 'left',
+                      maxWidth: '200px',
+                      animation: `float ${3 + index % 2}s infinite ease-in-out ${index * 0.5}s`,
+                    }}
+                  >
+                    {question}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
 
       {/* Enhanced Kuwaiti-inspired decorative element */}
       <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#007A3D] via-[#FFFFFF] to-[#CE1126] opacity-20" />
+
+      {/* Add animation keyframes via style tag */}
+      <style>{`
+        @keyframes pulse {
+          0%, 100% { opacity: 0.3; }
+          50% { opacity: 1; }
+        }
+      `}</style>
     </div>
   );
 };
