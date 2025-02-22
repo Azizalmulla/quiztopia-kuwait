@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Sparkles, Brain, ChevronRight, Rabbit, Cat } from 'lucide-react';
@@ -134,7 +135,11 @@ const Index = () => {
                     style={{
                       transform: `translate(${x}px, ${y}px) ${angle > 90 && angle < 270 ? 'rotate(180deg)' : ''}`,
                       textAlign: angle > 90 && angle < 270 ? 'right' : 'left',
-                      maxWidth: '200px',
+                      width: 'max-content',
+                      maxWidth: '160px',
+                      padding: '4px 8px',
+                      background: 'rgba(0, 0, 0, 0.3)',
+                      borderRadius: '4px',
                       animation: `float ${3 + index % 2}s infinite ease-in-out ${index * 0.5}s`,
                     }}
                   >
