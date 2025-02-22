@@ -2,9 +2,15 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Sparkles, Brain, ChevronRight, InfoIcon } from 'lucide-react';
+import { Button } from "@/components/ui/button";
 
 const Index = () => {
   const navigate = useNavigate();
+
+  const handlePlayClick = () => {
+    console.log("Navigate to dashboard");
+    navigate('/dashboard');
+  };
 
   return (
     <div className="min-h-screen w-full bg-[#0A0A0A] flex flex-col items-center justify-center overflow-hidden relative">
@@ -57,8 +63,8 @@ const Index = () => {
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row items-center gap-4 mt-8">
             {/* Primary CTA */}
-            <button
-              onClick={() => navigate('/dashboard')} // Updated to navigate to the dashboard
+            <Button
+              onClick={handlePlayClick}
               className="group relative flex items-center gap-3 px-10 py-4 
                 bg-gradient-to-r from-teal-600 to-emerald-600
                 text-white text-xl font-bold
@@ -77,7 +83,7 @@ const Index = () => {
                 <ChevronRight className="w-6 h-6 transition-transform group-hover:translate-x-1" />
               </span>
               <div className="absolute inset-0 bg-gradient-to-r from-emerald-700 to-teal-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            </button>
+            </Button>
 
             {/* Secondary CTA */}
             <button
