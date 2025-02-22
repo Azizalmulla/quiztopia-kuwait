@@ -6,7 +6,7 @@ import { QRCodeSVG } from 'qrcode.react';
 interface QuizCardProps {
   title: string;
   description: string;
-  icon: string;  // Changed to only accept string since we're using image URLs
+  icon: string;
   whatsappLink: string;
   webLink: string;
   gradient: string;
@@ -33,7 +33,7 @@ export function QuizCard({
     return (
       <img 
         src={icon} 
-        alt=""
+        alt={title}
         className="w-12 h-12 object-contain"
         onError={() => setImgError(true)}
       />
