@@ -53,7 +53,9 @@ export default function Game() {
   };
 
   const showInitialOptions = () => {
-    const options = ["نعم", "لا", "رجوع"];
+    const options = selectedLanguage === 'ar' 
+      ? ["نعم", "لا", "رجوع"]
+      : ["Yes", "No", "Back"];
     options.forEach((option, index) => {
       setTimeout(() => {
         addMessage(option, false, undefined, true);
@@ -86,7 +88,7 @@ export default function Game() {
     setIsProcessing(true);
     
     // Handle "Start from beginning" option
-    if (option === "بدي أرجع من البداية") {
+    if (option === "بدي أرجع من البداية" || option === "Start from beginning") {
       resetGame();
       return;
     }
@@ -113,13 +115,13 @@ export default function Game() {
 
     if (!gameStarted) {
       // Handle initial options
-      if (option === "نعم") {
+      if (option === "نعم" || option === "Yes") {
         setShowPayment(true);
         setIsProcessing(false);
-      } else if (option === "لا") {
+      } else if (option === "لا" || option === "No") {
         addMessage(selectedLanguage === 'ar' ? "شكراً لك! نراك قريباً" : "Thank you! See you soon!", false);
         setTimeout(() => navigate('/'), 2000);
-      } else if (option === "رجوع") {
+      } else if (option === "رجوع" || option === "Back") {
         navigate('/');
       }
       return;
@@ -133,8 +135,9 @@ export default function Game() {
     }
 
     // Check if the selected option is correct
-    const isCorrect = currentQuestion.options_ar.indexOf(option) === 
-      currentQuestion.options_en.indexOf(currentQuestion.correct_answer);
+    const optionsToCheck = selectedLanguage === 'ar' ? currentQuestion.options_ar : currentQuestion.options_en;
+    const selectedIndex = optionsToCheck.indexOf(option);
+    const isCorrect = selectedIndex === currentQuestion.options_en.indexOf(currentQuestion.correct_answer);
 
     if (isCorrect) {
       correctSound.play().catch(() => {});
@@ -161,7 +164,7 @@ export default function Game() {
           ? `انتهت المسابقة! حصلت على ${score + 1} من ${quizQuestions[category].length} نقاط`
           : `Quiz completed! You scored ${score + 1} out of ${quizQuestions[category].length} points`;
         addMessage(finalMessage, false);
-        addMessage("بدي أرجع من البداية", false, undefined, true);
+        addMessage(selectedLanguage === 'ar' ? "بدي أرجع من البداية" : "Start from beginning", false, undefined, true);
         setIsProcessing(false);
       }
     } else {
@@ -171,7 +174,7 @@ export default function Game() {
         ? `انتهت المسابقة! حصلت على ${score} من ${quizQuestions[category].length} نقاط`
         : `Quiz ended! You scored ${score} out of ${quizQuestions[category].length} points`;
       addMessage(finalMessage, false);
-      addMessage("بدي أرجع من البداية", false, undefined, true);
+      addMessage(selectedLanguage === 'ar' ? "بدي أرجع من البداية" : "Start from beginning", false, undefined, true);
       setIsProcessing(false);
     }
   };
