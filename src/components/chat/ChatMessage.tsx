@@ -29,27 +29,25 @@ export function ChatMessage({
     }
   };
 
-  const MessageContainer = isOption ? motion.div : 'div';
-  const messageProps = isOption ? {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.3 },
-  } : {};
+  const [label, ...textParts] = text.split(' ');
+  const remainingText = textParts.join(' ');
 
   return (
     <div 
       className={`flex mb-2 ${isUser ? 'justify-end' : 'justify-start'}`}
       dir="rtl"
     >
-      <MessageContainer 
+      <motion.div 
+        initial={{ opacity: 0, x: isUser ? 20 : -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.3 }}
+        onClick={handleClick}
         className={cn(
-          "relative max-w-[85%] px-4 py-2 rounded-xl",
-          isUser ? "bg-[#e7fedd]" : "bg-white",
+          "relative max-w-[80%] px-4 py-2 rounded-xl",
+          isUser ? "bg-[#e7fedd] rounded-tr-none" : "bg-white rounded-tl-none",
           isOption && "hover:bg-gray-50 cursor-pointer active:bg-gray-100 transition-colors",
           image && "overflow-hidden"
         )}
-        onClick={handleClick}
-        {...messageProps}
       >
         {showImage && image && (
           <div className="mb-2 -mx-4 -mt-2">
@@ -63,19 +61,19 @@ export function ChatMessage({
         <div className="flex items-center justify-between gap-3">
           {isOption && (
             <span className="text-[#00A884] font-medium min-w-[24px]">
-              {text.split(' ')[0]}
+              {label}
             </span>
           )}
           <span className="text-[15px] leading-5 text-[#111B21] flex-1">
-            {isOption ? text.split(' ').slice(1).join(' ') : text}
+            {isOption ? remainingText : text}
           </span>
         </div>
         <div className="flex justify-end mt-1">
-          <span className="text-[11px] text-[#8696a0]">
-            {format(timestamp, 'HH:mm')}
+          <span className="text-[10px] text-[#8696a0]">
+            {format(timestamp, 'hh:mm a')}
           </span>
         </div>
-      </MessageContainer>
+      </motion.div>
     </div>
   );
 }
