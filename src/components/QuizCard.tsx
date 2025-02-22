@@ -50,14 +50,11 @@ export function QuizCard({
           <div 
             className={`glass h-full rounded-2xl p-8 flex flex-col items-center justify-center gap-6 transition-all duration-300 hover:shadow-lg hover:shadow-${gradient} border border-white/5 group-hover:border-white/10 relative overflow-hidden`}
             style={{
-              backgroundImage: `url("${backgroundImage}")`,
+              background: backgroundImage,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
             }}
           >
-            {/* Dark overlay */}
-            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
-            
             <div className="relative z-10">
               <div className={`w-24 h-24 rounded-full bg-gradient-to-r ${gradient} p-0.5 mx-auto`}>
                 <div className="w-full h-full rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center">
