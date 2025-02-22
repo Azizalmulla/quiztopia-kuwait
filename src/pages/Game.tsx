@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ChatMessage } from '@/components/chat/ChatMessage';
@@ -40,14 +39,15 @@ export default function Game() {
   };
 
   const showOptions = () => {
-    addMessage("أكيد أبي أشارك", false, undefined, true);
-    setTimeout(() => {
-      addMessage("مرة ثانية إن شاء الله", false, undefined, true);
+    const options = ["نعم", "لا", "رجوع"];
+    options.forEach((option, index) => {
       setTimeout(() => {
-        addMessage("بدي أرجع من البداية", false, undefined, true);
-        setIsProcessing(false);
-      }, 500);
-    }, 500);
+        addMessage(option, false, undefined, true);
+        if (index === options.length - 1) {
+          setIsProcessing(false);
+        }
+      }, index * 300); // Stagger the animation of options
+    });
   };
 
   const handleOptionClick = (option: string) => {
@@ -164,7 +164,7 @@ export default function Game() {
 
   return (
     <div className="flex flex-col h-screen bg-[#EFE7DE]">
-      <div className="flex-1 overflow-y-auto px-3 py-2" dir="rtl">
+      <div className="flex-1 overflow-y-auto px-3 py-2">
         {messages.map((message, index) => (
           <ChatMessage
             key={index}
