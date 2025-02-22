@@ -31,12 +31,14 @@ export function QuizCard({
     }
 
     return (
-      <img 
-        src={icon} 
-        alt={title}
-        className="w-24 h-24 object-contain transition-transform duration-300 group-hover:scale-110"
-        onError={() => setImgError(true)}
-      />
+      <div className={`w-32 h-32 rounded-full border-2 border-white/20 p-4 flex items-center justify-center bg-black/20 backdrop-blur-sm transition-all duration-300 group-hover:border-white/40`}>
+        <img 
+          src={icon} 
+          alt={title}
+          className="w-24 h-24 object-contain transition-transform duration-300 group-hover:scale-110"
+          onError={() => setImgError(true)}
+        />
+      </div>
     );
   };
 
