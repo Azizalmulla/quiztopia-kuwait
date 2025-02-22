@@ -5,10 +5,20 @@ import { DashboardHeader } from '@/components/dashboard/DashboardHeader';
 import { BackgroundEffects } from '@/components/dashboard/BackgroundEffects';
 import { ScrollToTopButton } from '@/components/dashboard/ScrollToTopButton';
 import { QuizCard } from '@/components/QuizCard';
+import { useEffect } from 'react';
 
 const Dashboard = () => {
+  // Enable scrolling when component mounts
+  useEffect(() => {
+    document.body.style.overflow = 'auto';
+    // Cleanup when component unmounts
+    return () => {
+      document.body.style.overflow = 'hidden';
+    };
+  }, []);
+
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-white relative overflow-x-hidden">
+    <div className="min-h-screen bg-[#0A0A0A] text-white relative">
       <BackgroundEffects />
       <DashboardHeader />
 
