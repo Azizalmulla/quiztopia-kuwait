@@ -65,3 +65,6 @@ const Dashboard = () => {
       <ScrollToTopButton />
     </div>
   );
+};
+
+export default Dashboard;
