@@ -1,12 +1,12 @@
 
-import { useState, useEffect } from 'react';
-import { MessageCircle, Globe, LucideIcon } from 'lucide-react';
+import { useState } from 'react';
+import { MessageCircle, Globe } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 
 interface QuizCardProps {
   title: string;
   description: string;
-  icon: LucideIcon;  // Only allow LucideIcon for now
+  icon: React.ElementType;  // Change to ElementType for proper component typing
   whatsappLink: string;
   webLink: string;
   gradient: string;
