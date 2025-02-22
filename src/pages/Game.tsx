@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ChatMessage } from '@/components/chat/ChatMessage';
@@ -17,6 +18,7 @@ export default function Game() {
   const [score, setScore] = useState(0);
   const [hasGreeted, setHasGreeted] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [gameStarted, setGameStarted] = useState(false);
 
   const messageSound = new Audio('/message.mp3');
   const correctSound = new Audio('/correct.mp3');
@@ -46,93 +48,75 @@ export default function Game() {
         if (index === options.length - 1) {
           setIsProcessing(false);
         }
-      }, index * 300); // Stagger the animation of options
+      }, index * 300);
     });
   };
 
   const handleOptionClick = (option: string) => {
     if (isProcessing) return;
-    
     setIsProcessing(true);
     
-    if (option === "أكيد أبي أشارك") {
-      setShowPayment(true);
-      setIsProcessing(false);
-    } else if (option === "مرة ثانية إن شاء الله") {
-      addMessage("شكراً لك! نراك قريباً", false);
-      setTimeout(() => navigate('/'), 2000);
-    } else if (option === "بدي أرجع من البداية") {
-      navigate('/');
-    } else {
-      const currentQuestion = getCurrentQuestion();
-      if (!currentQuestion) {
+    if (!gameStarted) {
+      // Handle initial options
+      if (option === "نعم") {
+        setShowPayment(true);
         setIsProcessing(false);
-        return;
+      } else if (option === "لا") {
+        addMessage("شكراً لك! نراك قريباً", false);
+        setTimeout(() => navigate('/'), 2000);
+      } else if (option === "رجوع") {
+        navigate('/');
       }
+      return;
+    }
 
-      // Check if the selected option is correct
-      const isCorrect = currentQuestion.options_ar.indexOf(option) === 
-        currentQuestion.options_en.indexOf(currentQuestion.correct_answer);
+    // Handle quiz answers
+    const currentQuestion = getCurrentQuestion();
+    if (!currentQuestion) {
+      setIsProcessing(false);
+      return;
+    }
 
-      if (isCorrect) {
-        correctSound.play().catch(() => {});
-        setScore(prev => prev + 1);
-        addMessage("ممتاز! إجابة صحيحة! 🎉", false);
-        
-        if (currentQuestionIndex < quizQuestions[category].length - 1) {
-          setCurrentQuestionIndex(prev => prev + 1);
+    // Check if the selected option is correct
+    const isCorrect = currentQuestion.options_ar.indexOf(option) === 
+      currentQuestion.options_en.indexOf(currentQuestion.correct_answer);
+
+    if (isCorrect) {
+      correctSound.play().catch(() => {});
+      setScore(prev => prev + 1);
+      addMessage("ممتاز! إجابة صحيحة! 🎉", false);
+      
+      if (currentQuestionIndex < quizQuestions[category].length - 1) {
+        setCurrentQuestionIndex(prev => prev + 1);
+        setTimeout(() => {
+          const nextQuestion = quizQuestions[category][currentQuestionIndex + 1];
+          addMessage(nextQuestion.question_ar, false, nextQuestion.image_url);
           setTimeout(() => {
-            const nextQuestion = quizQuestions[category][currentQuestionIndex + 1];
-            addMessage(nextQuestion.question_ar, false, nextQuestion.image_url);
-            setTimeout(() => {
-              nextQuestion.options_ar.forEach((option, index) => {
-                setTimeout(() => {
-                  addMessage(option, false, undefined, true);
-                }, index * 500);
-              });
-              setIsProcessing(false);
-            }, 500);
-          }, 1000);
-        } else {
-          addMessage(`انتهت المسابقة! حصلت على ${score + 1} من ${quizQuestions[category].length} نقاط`, false);
-          addMessage("بدي أرجع من البداية", false, undefined, true);
-          setIsProcessing(false);
-        }
+            nextQuestion.options_ar.forEach((option, index) => {
+              setTimeout(() => {
+                addMessage(option, false, undefined, true);
+              }, index * 500);
+            });
+            setIsProcessing(false);
+          }, 500);
+        }, 1000);
       } else {
-        wrongSound.play().catch(() => {});
-        addMessage("للأسف الإجابة خطأ", false);
-        addMessage(`انتهت المسابقة! حصلت على ${score} من ${quizQuestions[category].length} نقاط`, false);
+        addMessage(`انتهت المسابقة! حصلت على ${score + 1} من ${quizQuestions[category].length} نقاط`, false);
         addMessage("بدي أرجع من البداية", false, undefined, true);
         setIsProcessing(false);
       }
-    }
-  };
-
-  const handleUserInput = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (isProcessing) return;
-
-    const input = userInput.trim();
-    if (!input) return;
-
-    setUserInput('');
-    addMessage(input, true);
-    setIsProcessing(true);
-
-    if (!hasGreeted) {
-      setHasGreeted(true);
-      setTimeout(() => {
-        addMessage("السلام عليكم! حياك الله في مسابقة الكويت للمعلومات العامة ⭐", false);
-        setTimeout(() => {
-          addMessage("هل تريد المشاركة في المسابقة؟", false);
-          setTimeout(showOptions, 500);
-        }, 500);
-      }, 500);
+    } else {
+      wrongSound.play().catch(() => {});
+      addMessage("للأسف الإجابة خطأ", false);
+      addMessage(`انتهت المسابقة! حصلت على ${score} من ${quizQuestions[category].length} نقاط`, false);
+      addMessage("بدي أرجع من البداية", false, undefined, true);
+      setIsProcessing(false);
     }
   };
 
   const handlePaymentSuccess = () => {
     setShowPayment(false);
+    setGameStarted(true);
     addMessage("!تم تأكيد الدفع! يلا نبدأ بالمسابقة", false);
     setTimeout(() => {
       const firstQuestion = getCurrentQuestion();
@@ -156,6 +140,29 @@ export default function Game() {
     setShowPayment(false);
     addMessage("تم إلغاء الدفع. هل تريد المحاولة مرة أخرى؟", false);
     setTimeout(showOptions, 500);
+  };
+
+  const handleUserInput = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (isProcessing) return;
+
+    const input = userInput.trim();
+    if (!input) return;
+
+    setUserInput('');
+    addMessage(input, true);
+    setIsProcessing(true);
+
+    if (!hasGreeted) {
+      setHasGreeted(true);
+      setTimeout(() => {
+        addMessage("السلام عليكم! حياك الله في مسابقة الكويت للمعلومات العامة ⭐", false);
+        setTimeout(() => {
+          addMessage("هل تريد المشاركة في المسابقة؟", false);
+          setTimeout(showOptions, 500);
+        }, 500);
+      }, 500);
+    }
   };
 
   useEffect(() => {
