@@ -150,7 +150,7 @@ export default function Game() {
       )}
 
       {/* Input area */}
-      <form onSubmit={handleLanguageSelect} className="bg-[#F0F0F0] p-4">
+      <form onSubmit={handleUserInput} className="bg-[#F0F0F0] p-4">
         <div className="flex items-center gap-2">
           <input
             type="text"
