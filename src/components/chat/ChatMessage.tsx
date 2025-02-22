@@ -7,34 +7,41 @@ interface ChatMessageProps {
   text: string;
   isUser: boolean;
   timestamp: Date;
-  image?: string;  // Added image prop as optional
+  image?: string;
 }
 
 export function ChatMessage({ text, isUser, timestamp, image }: ChatMessageProps) {
   return (
-    <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} mb-4`}>
-      <div className={`rounded-lg px-4 py-2 max-w-[80%] relative ${
-        isUser ? 'bg-[#DCF8C6]' : 'bg-white'
-      }`}>
+    <div 
+      className={`flex mb-2 ${isUser ? 'justify-end' : 'justify-start'}`}
+    >
+      <div 
+        className={`relative max-w-[85%] px-3 py-2 rounded-lg
+          ${isUser 
+            ? 'bg-[#E7FFDB] mr-1' 
+            : 'bg-white ml-1'
+          }
+          ${image ? 'overflow-hidden' : ''}
+        `}
+      >
         {image && (
-          <div className="mb-2">
+          <div className="mb-1 -mx-3 -mt-2">
             <img 
               src={image} 
-              alt="Question" 
-              className="rounded-lg max-w-full h-auto"
-              style={{ maxHeight: '200px' }}
+              alt="Question"
+              className="w-full max-h-[200px] object-cover"
             />
           </div>
         )}
-        <p className={`text-sm ${isUser ? 'text-[#303030]' : 'text-[#303030]'}`}>{text}</p>
-        <div className="flex items-center justify-end gap-1 mt-1">
-          <span className="text-xs text-gray-500">
+        <p className="text-[15px] leading-5 text-[#111B21]">{text}</p>
+        <div className="flex items-center justify-end gap-1 mt-1 -mb-1">
+          <span className="text-[11px] text-[#667781]">
             {format(timestamp, 'HH:mm')}
           </span>
           {isUser && (
-            <div className="flex">
-              <Check className="w-3 h-3 text-[#4FC3F7]" />
-              <Check className="w-3 h-3 -ml-1 text-[#4FC3F7]" />
+            <div className="flex -mr-1">
+              <Check className="w-3 h-3 text-[#53BDEB]" />
+              <Check className="w-3 h-3 -ml-1 text-[#53BDEB]" />
             </div>
           )}
         </div>

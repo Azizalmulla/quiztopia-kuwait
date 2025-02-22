@@ -6,6 +6,7 @@ import { KNETPayment } from '@/components/chat/KNETPayment';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { quizQuestions } from '@/data/quizQuestions';
+import { Send, Phone, MoreVertical } from 'lucide-react';
 
 export default function Game() {
   const { category = 'general' } = useParams();
@@ -140,22 +141,26 @@ export default function Game() {
   }, [messages]);
 
   return (
-    <div className="flex flex-col h-screen bg-[#E5DDD5] bg-[url('/whatsapp-bg.png')] bg-repeat">
+    <div className="flex flex-col h-screen bg-[#EFE7DE] bg-[url('/whatsapp-bg.png')] bg-repeat bg-opacity-50">
       {/* WhatsApp header */}
-      <div className="bg-[#075E54] text-white px-4 py-3 flex items-center justify-between sticky top-0 z-10">
-        <div className="flex items-center">
+      <div className="bg-[#008069] text-white px-4 py-2 flex items-center justify-between sticky top-0 z-10">
+        <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden">
-            <img src="/quiz-bot-avatar.png" alt="Bot" className="w-full h-full object-cover" />
+            <img src="/quiz-bot-avatar.png" alt="Quiz Bot" className="w-full h-full object-cover" />
           </div>
-          <div className="mr-3 text-right">
-            <h1 className="font-semibold">مسابقة الكويت</h1>
-            <p className="text-sm opacity-75">Kuwait Quiz</p>
+          <div className="flex flex-col">
+            <h1 className="font-semibold text-[16px]">مسابقة الكويت</h1>
+            <p className="text-[13px] opacity-70">Kuwait Quiz</p>
           </div>
+        </div>
+        <div className="flex items-center gap-6">
+          <Phone className="w-5 h-5" />
+          <MoreVertical className="w-5 h-5" />
         </div>
       </div>
 
-      {/* Chat messages */}
-      <div className="flex-1 overflow-y-auto p-4" dir="rtl">
+      {/* Chat area with proper padding and background */}
+      <div className="flex-1 overflow-y-auto px-3 py-2" dir="rtl">
         {messages.map((message, index) => (
           <ChatMessage
             key={index}
@@ -168,23 +173,25 @@ export default function Game() {
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Options Buttons */}
+      {/* Options Buttons with WhatsApp styling */}
       {showOptions && (
-        <div className="bg-[#F0F0F0] p-4 sticky bottom-0 z-10" dir="rtl">
-          <div className="flex flex-col gap-2">
+        <div className="bg-[#F0F2F5] p-2 sticky bottom-0 z-10 border-t border-[#E9EDEF]" dir="rtl">
+          <div className="flex flex-col gap-2 max-w-[600px] mx-auto">
             {!showPayment && currentQuestionIndex === 0 && (
               <>
                 <Button 
                   onClick={() => handleInitialChoice('yes')}
-                  className="w-full bg-[#075E54] hover:bg-[#054C44] text-right justify-start"
+                  className="w-full bg-white hover:bg-gray-50 text-[#111B21] border border-[#E9EDEF] shadow-sm text-right justify-start font-normal"
                 >
-                  نعم     أكيد أبي أشارك
+                  <span className="text-[#00A884] ml-2">نعم</span>
+                  أكيد أبي أشارك
                 </Button>
                 <Button 
                   onClick={() => handleInitialChoice('no')}
-                  className="w-full bg-[#075E54] hover:bg-[#054C44] text-right justify-start"
+                  className="w-full bg-white hover:bg-gray-50 text-[#111B21] border border-[#E9EDEF] shadow-sm text-right justify-start font-normal"
                 >
-                  لا     مرة ثانية إن شاء الله
+                  <span className="text-[#00A884] ml-2">لا</span>
+                  مرة ثانية إن شاء الله
                 </Button>
               </>
             )}
@@ -192,17 +199,36 @@ export default function Game() {
               <Button
                 key={index}
                 onClick={() => handleAnswer(arabicLetters[index])}
-                className="w-full bg-[#075E54] hover:bg-[#054C44] text-right justify-start"
+                className="w-full bg-white hover:bg-gray-50 text-[#111B21] border border-[#E9EDEF] shadow-sm text-right justify-start font-normal"
               >
-                {`${arabicLetters[index]}     ${option}`}
+                <span className="text-[#00A884] ml-2">{arabicLetters[index]}</span>
+                {option}
               </Button>
             ))}
             <Button
               onClick={() => handleAnswer('end')}
-              className="w-full bg-[#075E54] hover:bg-[#054C44] text-right justify-start"
+              className="w-full bg-white hover:bg-gray-50 text-[#111B21] border border-[#E9EDEF] shadow-sm text-right justify-start font-normal"
             >
-              end     بدي أرجع من البداية
+              <span className="text-[#00A884] ml-2">end</span>
+              بدي أرجع من البداية
             </Button>
+          </div>
+        </div>
+      )}
+
+      {/* Message Input - Hidden when showing options */}
+      {!showOptions && (
+        <div className="bg-[#F0F2F5] p-2 sticky bottom-0 z-10 border-t border-[#E9EDEF]">
+          <div className="flex items-center gap-2 max-w-[600px] mx-auto">
+            <button className="bg-[#00A884] hover:bg-[#008069] text-white p-2 rounded-full transition-colors">
+              <Send className="w-6 h-6" />
+            </button>
+            <input
+              type="text"
+              placeholder="اكتب رسالتك هنا..."
+              className="flex-1 rounded-lg px-4 py-2 text-right bg-white border-0 focus:ring-0 focus:outline-none text-[15px]"
+              dir="rtl"
+            />
           </div>
         </div>
       )}
