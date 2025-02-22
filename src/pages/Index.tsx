@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Sparkles, Brain, ChevronRight, Rabbit, Cat } from 'lucide-react';
@@ -98,7 +99,7 @@ const Index = () => {
 
         {/* Right Section - Brain Icon with Connected Questions */}
         <div className="lg:w-1/2 flex justify-center lg:justify-end">
-          <div className="relative w-64 h-64 md:w-[400px] md:h-[400px] flex items-center justify-center">
+          <div className="relative w-64 h-64 md:w-[500px] md:h-[500px] flex items-center justify-center">
             {/* Glowing background effect */}
             <div className="absolute inset-0 bg-gradient-to-r from-teal-500/20 to-emerald-500/20 rounded-full blur-3xl animate-pulse" />
             <div className="absolute inset-0 bg-gradient-to-r from-teal-500/10 to-emerald-500/10 rounded-full blur-2xl animate-float" />
@@ -111,7 +112,7 @@ const Index = () => {
             {/* Connected Questions with Lines */}
             {arabicQuestions.map((question, index) => {
               const angle = (360 / arabicQuestions.length) * index;
-              const radius = 140; // Distance from brain to question
+              const radius = 200; // Increased radius for more space
               const x = Math.cos((angle * Math.PI) / 180) * radius;
               const y = Math.sin((angle * Math.PI) / 180) * radius;
               
@@ -132,9 +133,16 @@ const Index = () => {
                   <div
                     className="absolute whitespace-nowrap text-sm text-teal-300/70"
                     style={{
-                      transform: `translate(${x}px, ${y}px)`,
+                      transform: `translate(${x}px, ${y}px) ${angle > 90 && angle < 270 ? 'rotate(180deg)' : ''}`,
+                      textAlign: angle > 90 && angle < 270 ? 'right' : 'left',
                       width: 'max-content',
                       maxWidth: '160px',
+                      padding: '8px 12px',
+                      background: 'rgba(0, 0, 0, 0.5)',
+                      borderRadius: '8px',
+                      backdropFilter: 'blur(4px)',
+                      border: '1px solid rgba(255, 255, 255, 0.1)',
+                      boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
                     }}
                   >
                     {question}
