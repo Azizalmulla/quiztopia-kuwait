@@ -34,7 +34,7 @@ export function QuizCard({
       <img 
         src={icon} 
         alt={title}
-        className="w-16 h-16 object-contain rounded-full p-2"
+        className="w-24 h-24 object-contain transition-transform duration-300 group-hover:scale-110"
         onError={() => setImgError(true)}
       />
     );
@@ -56,11 +56,7 @@ export function QuizCard({
             }}
           >
             <div className="relative z-10">
-              <div className={`w-24 h-24 rounded-full bg-gradient-to-r ${gradient} p-0.5 mx-auto flex items-center justify-center`}>
-                <div className="w-full h-full rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center">
-                  {renderIcon()}
-                </div>
-              </div>
+              {renderIcon()}
             </div>
             <h3 className="relative z-10 text-2xl font-semibold text-white text-center group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-white/70 transition-all duration-300">{title}</h3>
             <p className="relative z-10 text-white/70 text-center transition-colors duration-300 group-hover:text-white/90">{description}</p>
