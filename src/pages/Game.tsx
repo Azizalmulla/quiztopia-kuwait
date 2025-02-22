@@ -4,11 +4,10 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { ChatMessage } from '@/components/chat/ChatMessage';
 import { QuizTimer } from '@/components/chat/QuizTimer';
 import { KNETPayment } from '@/components/chat/KNETPayment';
-import { CheckCircle2, Send } from 'lucide-react';
+import { Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { quizQuestions } from '@/data/quizQuestions';
-import { toast } from "sonner";
 
 export default function Game() {
   const { category = 'general' } = useParams();
@@ -17,15 +16,16 @@ export default function Game() {
   const [messages, setMessages] = useState<Array<{text: string; isUser: boolean; timestamp: Date; image?: string}>>([]);
   const [userInput, setUserInput] = useState('');
   const [showPayment, setShowPayment] = useState(false);
-  const [language, setLanguage] = useState<'en' | 'ar' | null>(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [isTimerActive, setIsTimerActive] = useState(false);
-  const [gameStarted, setGameStarted] = useState(false);
+  const [score, setScore] = useState(0);
 
   const messageSound = new Audio('/message.mp3');
   const timerSound = new Audio('/timer.mp3');
   const correctSound = new Audio('/correct.mp3');
   const wrongSound = new Audio('/wrong.mp3');
+
+  const arabicLetters = ['أ', 'ب', 'ج', 'د'];
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -43,43 +43,44 @@ export default function Game() {
     return questions[currentQuestionIndex];
   };
 
-  const handleLanguageSelect = (lang: 'en' | 'ar') => {
-    setLanguage(lang);
-    const welcomeMsg = lang === 'ar' 
-      ? "هلا والله! تبي تشارك في المسابقة؟ (نعم/لا)" 
-      : "Welcome to our quiz! Would you like to participate? (Yes/No)";
-    addMessage(welcomeMsg, false);
-  };
-
   const askQuestion = () => {
     const currentQuestion = getCurrentQuestion();
     if (!currentQuestion) return;
 
-    const questionText = language === 'ar' ? currentQuestion.question_ar : currentQuestion.question_en;
-    const options = language === 'ar' ? currentQuestion.options_ar : currentQuestion.options_en;
-    
-    // Add the question with its image
-    addMessage(questionText, false, currentQuestion.image_url);
+    // Add the question text and image
+    addMessage(currentQuestion.question_ar, false, currentQuestion.image_url);
 
-    // Add options after a short delay
-    options.forEach((option, index) => {
+    // Add options as separate messages
+    currentQuestion.options_ar.forEach((option, index) => {
       setTimeout(() => {
-        addMessage(`${index + 1}. ${option}`, false);
+        addMessage(`${arabicLetters[index]}     ${option}`, false);
       }, index * 500);
     });
+
+    // Add the "end" option
+    setTimeout(() => {
+      addMessage("end     بدي أرجع من البداية", false);
+    }, currentQuestion.options_ar.length * 500);
   };
 
   const handleAnswer = (answer: string) => {
     const currentQuestion = getCurrentQuestion();
     if (!currentQuestion) return;
+    
+    if (answer.toLowerCase() === 'end') {
+      navigate('/');
+      return;
+    }
 
-    const isCorrect = answer.toLowerCase() === currentQuestion.correct_answer.toLowerCase() ||
-                     answer === (currentQuestion.options_en.indexOf(currentQuestion.correct_answer) + 1).toString();
+    const answerIndex = arabicLetters.indexOf(answer);
+    const isCorrect = currentQuestion.options_ar[answerIndex] === currentQuestion.options_ar[
+      currentQuestion.options_en.indexOf(currentQuestion.correct_answer)
+    ];
 
     if (isCorrect) {
       correctSound.play().catch(() => {});
-      const correctMsg = language === 'ar' ? "ممتاز! إجابة صحيحة! 🎉" : "Excellent! Correct answer! 🎉";
-      addMessage(correctMsg, false);
+      setScore(prev => prev + 1);
+      addMessage("ممتاز! إجابة صحيحة! 🎉", false);
       
       if (currentQuestionIndex < quizQuestions[category].length - 1) {
         setCurrentQuestionIndex(prev => prev + 1);
@@ -89,21 +90,16 @@ export default function Game() {
           askQuestion();
         }, 1000);
       } else {
-        // Quiz completed
-        const completionMsg = language === 'ar' 
-          ? "مبروك! خلصت المسابقة! 🎊" 
-          : "Congratulations! You've completed the quiz! 🎊";
-        addMessage(completionMsg, false);
         setIsTimerActive(false);
-        setTimeout(() => navigate('/'), 3000);
+        addMessage(`انتهت المسابقة! حصلت على ${score + 1} من ${quizQuestions[category].length} نقاط`, false);
+        addMessage("إذا حبيت تبدأ من جديد 'end' تقدر تكتب", false);
       }
     } else {
       wrongSound.play().catch(() => {});
-      const wrongMsg = language === 'ar' 
-        ? "للأسف الإجابة غلط! انتهت المسابقة. نشوفك مرة ثانية!" 
-        : "Sorry, wrong answer! The quiz is over. See you next time!";
-      addMessage(wrongMsg, false);
-      setTimeout(() => navigate('/'), 3000);
+      addMessage("للأسف الإجابة خطأ. خليج المكسيك هو أكبر خليج في العالم بمساحة تقدر بحوالي 1.6 مليون كيلومتر مربع", false);
+      addMessage(`انتهت المسابقة! حصلت على ${score} من ${quizQuestions[category].length} نقاط`, false);
+      addMessage("إذا حبيت تبدأ من جديد 'end' تقدر تكتب", false);
+      setIsTimerActive(false);
     }
   };
 
@@ -113,18 +109,11 @@ export default function Game() {
 
     addMessage(userInput, true);
     
-    if (!language) {
-      if (userInput.toLowerCase().includes('english') || userInput.toLowerCase().includes('en')) {
-        handleLanguageSelect('en');
-      } else if (userInput.toLowerCase().includes('arabic') || userInput.toLowerCase().includes('ar') || userInput.includes('عربي')) {
-        handleLanguageSelect('ar');
-      }
-    } else if (!gameStarted) {
-      if (userInput.toLowerCase().includes('yes') || userInput.toLowerCase().includes('نعم')) {
+    if (!showPayment) {
+      if (userInput === 'نعم' || userInput.toLowerCase() === 'yes') {
         setShowPayment(true);
-      } else if (userInput.toLowerCase().includes('no') || userInput.toLowerCase().includes('لا')) {
-        const goodbyeMsg = language === 'ar' ? "شكراً لك! نراك قريباً" : "Thank you! See you soon!";
-        addMessage(goodbyeMsg, false);
+      } else if (userInput === 'لا' || userInput.toLowerCase() === 'no') {
+        addMessage("شكراً لك! نراك قريباً", false);
         setTimeout(() => navigate('/'), 2000);
       }
     } else {
@@ -136,12 +125,8 @@ export default function Game() {
 
   const handlePaymentSuccess = () => {
     setShowPayment(false);
-    setGameStarted(true);
     setIsTimerActive(true);
-    const startMsg = language === 'ar' 
-      ? "ممتاز! لنبدأ المسابقة. لديك 15 ثانية للإجابة على كل سؤال." 
-      : "Great! Let's start the quiz. You have 15 seconds to answer each question.";
-    addMessage(startMsg, false);
+    addMessage("!تم تأكيد الدفع! يلا نبدأ بالمسابقة", false);
     setTimeout(() => {
       askQuestion();
     }, 1000);
@@ -149,25 +134,22 @@ export default function Game() {
 
   const handlePaymentCancel = () => {
     setShowPayment(false);
-    const cancelMsg = language === 'ar' 
-      ? "تم إلغاء الدفع. هل تريد المحاولة مرة أخرى؟" 
-      : "Payment cancelled. Would you like to try again?";
-    addMessage(cancelMsg, false);
+    addMessage("تم إلغاء الدفع. هل تريد المحاولة مرة أخرى؟", false);
   };
 
   const handleTimeUp = () => {
     timerSound.play().catch(() => {});
     setIsTimerActive(false);
-    const timeUpMsg = language === 'ar' 
-      ? "خلص الوقت! انتهت المسابقة. نشوفك مرة ثانية!" 
-      : "Time's up! The quiz is over. See you next time!";
-    addMessage(timeUpMsg, false);
-    setTimeout(() => navigate('/'), 3000);
+    addMessage("!خلص الوقت! انتهت المسابقة", false);
+    addMessage(`حصلت على ${score} من ${quizQuestions[category].length} نقاط`, false);
+    addMessage("إذا حبيت تبدأ من جديد 'end' تقدر تكتب", false);
   };
 
   useEffect(() => {
-    addMessage("Welcome! Please select your language / هلا! اختار اللغة", false);
-    addMessage("English or Arabic? / إنجليزي لو عربي؟", false);
+    addMessage("السلام عليكم! حياك الله في مسابقة الكويت للمعلومات العامة ⭐", false);
+    addMessage("نعم     أكيد أبي أشارك", false);
+    addMessage("لا     مرة ثانية إن شاء الله", false);
+    addMessage("end     بدي أرجع من البداية", false);
   }, []);
 
   useEffect(() => {
@@ -182,23 +164,15 @@ export default function Game() {
           <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden">
             <img src="/quiz-bot-avatar.png" alt="Bot" className="w-full h-full object-cover" />
           </div>
-          <div className="ml-3">
-            <h1 className="font-semibold">Quiz Bot</h1>
-            <div className="flex items-center text-sm">
-              <CheckCircle2 className="w-4 h-4 mr-1 text-blue-400" />
-              <span>Verified Business</span>
-            </div>
-          </div>
-        </div>
-        <div className="flex items-center space-x-4">
-          <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center">
-            <span className="text-sm">⋮</span>
+          <div className="mr-3 text-right"> {/* Changed ml-3 to mr-3 for RTL */}
+            <h1 className="font-semibold">مسابقة الكويت</h1>
+            <p className="text-sm opacity-75">Kuwait Quiz</p>
           </div>
         </div>
       </div>
 
       {/* Chat messages */}
-      <div className="flex-1 overflow-y-auto p-4">
+      <div className="flex-1 overflow-y-auto p-4" dir="rtl"> {/* Added dir="rtl" */}
         {messages.map((message, index) => (
           <ChatMessage
             key={index}
@@ -213,7 +187,7 @@ export default function Game() {
 
       {/* Timer */}
       {isTimerActive && (
-        <div className="fixed top-20 right-4">
+        <div className="fixed top-20 left-4"> {/* Changed right-4 to left-4 for RTL */}
           <QuizTimer
             duration={15}
             onTimeUp={handleTimeUp}
@@ -225,19 +199,20 @@ export default function Game() {
       {/* Input area */}
       <form onSubmit={handleUserInput} className="bg-[#F0F0F0] p-4 sticky bottom-0 z-10">
         <div className="flex items-center gap-2">
-          <input
-            type="text"
-            value={userInput}
-            onChange={(e) => setUserInput(e.target.value)}
-            className="flex-1 rounded-full px-6 py-3 focus:outline-none focus:ring-2 focus:ring-[#075E54] bg-white"
-            placeholder={language === 'ar' ? "اكتب رسالتك..." : "Type a message..."}
-          />
           <Button 
             type="submit"
             className="bg-[#075E54] hover:bg-[#054C44] rounded-full w-12 h-12 flex items-center justify-center"
           >
             <Send className="w-5 h-5" />
           </Button>
+          <input
+            type="text"
+            value={userInput}
+            onChange={(e) => setUserInput(e.target.value)}
+            className="flex-1 rounded-full px-6 py-3 focus:outline-none focus:ring-2 focus:ring-[#075E54] bg-white text-right"
+            placeholder="...اكتب رسالتك هنا"
+            dir="rtl"
+          />
         </div>
       </form>
 
