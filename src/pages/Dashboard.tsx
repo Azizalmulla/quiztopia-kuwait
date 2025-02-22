@@ -50,11 +50,10 @@ const Dashboard = () => {
         {/* Main Content */}
         <div className="container mx-auto px-4 pb-20">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-[1600px] mx-auto">
-            {quizCategories.map((category, index) => (
+            {quizCategories.map((category) => (
               <div
                 key={category.title}
                 className="animate-fade-in transform hover:scale-105 transition-transform duration-200"
-                style={{ animationDelay: `${index * 100}ms` }}
               >
                 <QuizCard {...category} />
               </div>
@@ -66,6 +65,3 @@ const Dashboard = () => {
       <ScrollToTopButton />
     </div>
   );
-};
-
-export default Dashboard;
