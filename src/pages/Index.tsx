@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Sparkles, Brain, ChevronRight, InfoIcon } from 'lucide-react';
+import { Sparkles, Brain, ChevronRight } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 
 const Index = () => {
@@ -84,19 +84,6 @@ const Index = () => {
               </span>
               <div className="absolute inset-0 bg-gradient-to-r from-emerald-700 to-teal-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </Button>
-
-            {/* Secondary CTA */}
-            <button
-              onClick={() => navigate('/about')}
-              className="group flex items-center gap-2 px-6 py-3
-                text-white/70 text-lg font-medium
-                rounded-xl border border-white/10
-                hover:bg-white/5 hover:text-white
-                transition-all duration-300"
-            >
-              <InfoIcon className="w-5 h-5" />
-              How It Works
-            </button>
           </div>
         </div>
 
