@@ -10,6 +10,7 @@ interface QuizCardProps {
   whatsappLink: string;
   webLink: string;
   gradient: string;
+  backgroundImage: string;
 }
 
 export function QuizCard({ 
@@ -18,7 +19,8 @@ export function QuizCard({
   icon: Icon,
   whatsappLink, 
   webLink, 
-  gradient 
+  gradient,
+  backgroundImage
 }: QuizCardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
 
@@ -29,14 +31,26 @@ export function QuizCard({
     >
       <div className={`card-flip-inner ${isFlipped ? 'flipped' : ''} duration-700`}>
         <div className="card-front">
-          <div className={`glass h-full rounded-2xl p-8 flex flex-col items-center justify-center gap-6 transition-all duration-300 hover:shadow-lg hover:shadow-${gradient} border border-white/5 group-hover:border-white/10`}>
-            <div className={`w-24 h-24 rounded-full bg-gradient-to-r ${gradient} p-0.5`}>
-              <div className="w-full h-full rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center">
-                <Icon className="w-12 h-12 text-white" />
+          <div 
+            className={`glass h-full rounded-2xl p-8 flex flex-col items-center justify-center gap-6 transition-all duration-300 hover:shadow-lg hover:shadow-${gradient} border border-white/5 group-hover:border-white/10 relative overflow-hidden`}
+            style={{
+              backgroundImage: `url(${backgroundImage})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}
+          >
+            {/* Dark overlay */}
+            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+            
+            <div className="relative z-10">
+              <div className={`w-24 h-24 rounded-full bg-gradient-to-r ${gradient} p-0.5 mx-auto`}>
+                <div className="w-full h-full rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center">
+                  <Icon className="w-12 h-12 text-white" />
+                </div>
               </div>
             </div>
-            <h3 className="text-2xl font-semibold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-white/70 transition-all duration-300">{title}</h3>
-            <p className="text-white/70 text-center transition-colors duration-300 group-hover:text-white/90">{description}</p>
+            <h3 className="relative z-10 text-2xl font-semibold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-white/70 transition-all duration-300">{title}</h3>
+            <p className="relative z-10 text-white/70 text-center transition-colors duration-300 group-hover:text-white/90">{description}</p>
           </div>
         </div>
         
