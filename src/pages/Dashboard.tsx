@@ -22,9 +22,9 @@ const Dashboard = () => {
       <BackgroundEffects />
       <DashboardHeader />
 
-      {/* Categories Grid */}
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {/* Categories Grid - Centered */}
+      <div className="container mx-auto px-4 py-12 flex justify-center items-center">
+        <div className="w-full max-w-md">
           {quizCategories.map((category, index) => (
             <QuizCard
               key={index}
