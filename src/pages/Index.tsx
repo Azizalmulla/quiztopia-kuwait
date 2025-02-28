@@ -97,9 +97,9 @@ const Index = () => {
           </Button>
         </div>
 
-        {/* Right Section - Brain Icon with Connected Questions (Cleaner implementation) */}
-        <div className="mt-12 md:mt-0 flex justify-center">
-          <div className="relative w-64 h-64 md:w-72 md:h-72 flex items-center justify-center">
+        {/* Right Section - Brain Icon with Connected Questions */}
+        <div className="mt-12 md:mt-0 flex justify-center md:mr-6 lg:mr-10">
+          <div className="relative w-64 h-64 md:w-80 md:h-80 flex items-center justify-center">
             {/* Subtle glowing background effect */}
             <div className="absolute inset-0 bg-gradient-to-r from-teal-500/10 to-emerald-500/10 rounded-full blur-3xl animate-pulse opacity-50" />
             
@@ -110,11 +110,15 @@ const Index = () => {
 
             {/* Desktop-optimized Connected Questions */}
             {arabicQuestions.slice(0, 5).map((question, index) => {
-              // Calculate positions in a more visually pleasing arrangement
-              const angleStep = 360 / 5;
-              const angleOffset = index === 0 ? 0 : 30; // Offset first question for better layout
-              const angle = (angleStep * index) + angleOffset;
-              const radius = 110; // Fixed radius for desktop
+              // Calculate positions with adjusted angles to prevent overlap
+              const angleStep = 72; // 360 / 5
+              const baseAngle = -90; // Start from top
+              const angle = baseAngle + (angleStep * index);
+              
+              // Increase radius for the planet question specifically
+              const isFirstQuestion = index === 0; // The planets question
+              const radius = isFirstQuestion ? 140 : 120;
+              
               const x = Math.cos((angle * Math.PI) / 180) * radius;
               const y = Math.sin((angle * Math.PI) / 180) * radius;
               
@@ -133,7 +137,7 @@ const Index = () => {
                   
                   {/* Question bubble */}
                   <div
-                    className="absolute whitespace-nowrap text-xs text-teal-300/80 text-right rtl"
+                    className="absolute whitespace-nowrap text-xs text-teal-300/80 rtl"
                     style={{
                       top: `calc(50% + ${y}px)`,
                       left: `calc(50% + ${x}px)`,
@@ -162,9 +166,19 @@ const Index = () => {
 
       {/* Add animation keyframes via style tag */}
       <style>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-10px); }
+        }
+        
         @keyframes pulse {
           0%, 100% { opacity: 0.3; }
           50% { opacity: 0.8; }
+        }
+        
+        @keyframes spin-slow {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
         }
         
         /* Right-to-left text direction for Arabic */
