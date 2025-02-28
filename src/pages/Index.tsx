@@ -50,25 +50,25 @@ const Index = () => {
       </div>
 
       {/* Main Content */}
-      <div className="container mx-auto px-4 flex flex-col lg:flex-row items-center justify-between gap-12 relative animate-fade-in">
+      <div className="container mx-auto px-4 flex flex-col items-center justify-between gap-8 relative animate-fade-in">
         {/* Left Section */}
-        <div className="flex flex-col items-center lg:items-start text-center lg:text-left lg:w-1/2 space-y-8">
+        <div className="flex flex-col items-center text-center space-y-6 w-full max-w-md">
           {/* Title with enhanced animation */}
           <div className="relative group">
-            <h1 className="text-7xl md:text-8xl lg:text-9xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-200 via-emerald-200 to-green-200 font-plus-jakarta tracking-tight">
+            <h1 className="text-6xl sm:text-7xl md:text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-200 via-emerald-200 to-green-200 font-plus-jakarta tracking-tight">
               AI والله
             </h1>
-            <Sparkles className="absolute -top-6 -right-6 text-teal-200/60 animate-spin-slow w-10 h-10" />
-            <Cat className="absolute -bottom-6 -left-6 text-emerald-300/60 animate-bounce w-8 h-8" />
+            <Sparkles className="absolute -top-6 -right-6 text-teal-200/60 animate-spin-slow w-8 h-8 sm:w-10 sm:h-10" />
+            <Cat className="absolute -bottom-6 -left-6 text-emerald-300/60 animate-bounce w-6 h-6 sm:w-8 sm:h-8" />
           </div>
 
           {/* Enhanced glass effect container */}
-          <div className="relative glass rounded-2xl px-8 py-6 backdrop-blur-xl bg-white/[0.03] border border-white/5 transform hover:scale-105 transition-all duration-300">
-            <Rabbit className="absolute -top-4 -right-4 text-white/20 w-8 h-8 animate-float" />
-            <p className="text-xl md:text-2xl text-white/90 font-medium tracking-wide">
+          <div className="relative glass rounded-2xl px-6 py-5 backdrop-blur-xl bg-white/[0.03] border border-white/5 transform hover:scale-105 transition-all duration-300 w-full max-w-sm">
+            <Rabbit className="absolute -top-4 -right-4 text-white/20 w-6 h-6 sm:w-8 sm:h-8 animate-float" />
+            <p className="text-lg sm:text-xl md:text-2xl text-white/90 font-medium tracking-wide">
               Challenge yourself with autonomous trivia quizzes
             </p>
-            <p className="mt-2 text-base md:text-lg text-white/60">
+            <p className="mt-2 text-sm sm:text-base text-white/60">
               Test your knowledge across various topics and compete with friends!
             </p>
           </div>
@@ -76,9 +76,9 @@ const Index = () => {
           {/* Enhanced CTA Button */}
           <Button
             onClick={handlePlayClick}
-            className="group relative flex items-center gap-3 px-10 py-6 
+            className="group relative flex items-center gap-3 px-8 py-5 
               bg-gradient-to-r from-teal-600 to-emerald-600
-              text-white text-xl font-bold
+              text-white text-lg sm:text-xl font-bold
               rounded-2xl
               shadow-lg shadow-teal-950/30
               transition-all duration-300 ease-out
@@ -91,34 +91,31 @@ const Index = () => {
           >
             <span className="relative z-10 flex items-center gap-3">
               ها نلعب؟
-              <ChevronRight className="w-6 h-6 transition-transform group-hover:translate-x-1" />
+              <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 transition-transform group-hover:translate-x-1" />
             </span>
             <div className="absolute inset-0 bg-gradient-to-r from-emerald-700 to-teal-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           </Button>
         </div>
 
-        {/* Right Section - Brain Icon with Connected Questions */}
-        <div className="lg:w-1/2 flex justify-center lg:justify-end">
-          <div className="relative w-64 h-64 md:w-[500px] md:h-[500px] flex items-center justify-center">
+        {/* Right Section - Brain Icon with Connected Questions (Simplified for Mobile) */}
+        <div className="w-full flex justify-center mt-4 mb-8">
+          <div className="relative w-56 h-56 sm:w-64 sm:h-64 md:w-80 md:h-80 flex items-center justify-center">
             {/* Glowing background effect */}
             <div className="absolute inset-0 bg-gradient-to-r from-teal-500/20 to-emerald-500/20 rounded-full blur-3xl animate-pulse" />
             <div className="absolute inset-0 bg-gradient-to-r from-teal-500/10 to-emerald-500/10 rounded-full blur-2xl animate-float" />
             
             {/* Brain Icon */}
             <div className="relative z-10">
-              <Brain className="w-32 h-32 md:w-40 md:h-40 text-teal-300/80 drop-shadow-[0_0_15px_rgba(20,184,166,0.3)]" />
+              <Brain className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 text-teal-300/80 drop-shadow-[0_0_15px_rgba(20,184,166,0.3)]" />
             </div>
 
-            {/* Connected Questions with Lines */}
-            {arabicQuestions.map((question, index) => {
-              const angle = (360 / arabicQuestions.length) * index;
-              const radius = 160; // Reduced radius for shorter lines
+            {/* Simplified Connected Questions for Mobile */}
+            {arabicQuestions.slice(0, 4).map((question, index) => {
+              // Calculate positions in a more compact arrangement
+              const angle = (360 / 4) * index;
+              const radius = Math.min(80, window.innerWidth * 0.2); // Responsive radius based on screen size
               const x = Math.cos((angle * Math.PI) / 180) * radius;
               const y = Math.sin((angle * Math.PI) / 180) * radius;
-              
-              // Calculate position adjustment for text alignment
-              const isLeft = angle > 90 && angle < 270;
-              const textAdjustX = isLeft ? -160 : 0; // Adjust text position for left side
               
               return (
                 <div key={index} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
@@ -133,19 +130,19 @@ const Index = () => {
                     }}
                   />
                   
-                  {/* Question Text */}
+                  {/* Question Text - Hidden on small screens */}
                   <div
-                    className="absolute whitespace-nowrap text-sm text-teal-300/70"
+                    className="hidden sm:block absolute whitespace-nowrap text-xs md:text-sm text-teal-300/70"
                     style={{
-                      transform: `translate(${x + textAdjustX}px, ${y}px)`,
-                      textAlign: isLeft ? 'right' : 'left',
-                      width: '160px',
-                      padding: '8px 12px',
+                      transform: `translate(${x}px, ${y}px)`,
+                      width: '130px',
+                      padding: '6px 8px',
                       background: 'rgba(0, 0, 0, 0.5)',
-                      borderRadius: '8px',
+                      borderRadius: '6px',
                       backdropFilter: 'blur(4px)',
                       border: '1px solid rgba(255, 255, 255, 0.1)',
                       boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                      textAlign: 'center',
                     }}
                   >
                     {question}
